@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  web_project_monitoring:
+    build: .
+    image: app
+    # command: python manage.py runserver 0.0.0.0:8888
+    volumes:
+      - .:/code
+    entrypoint:
+      - ./entrypoint.sh
+    ports:
+      - "8888:8888"
+
+
+
