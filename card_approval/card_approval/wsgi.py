@@ -1,5 +1,5 @@
 """
-WSGI config for project_tracking project.
+WSGI config for card_approval project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project_tracking.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "card_approval.settings")
 
 application = get_wsgi_application()
