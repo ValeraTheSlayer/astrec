@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from card.views import main_page
+from card.views import main_page, card_create
 
 
 urlpatterns = [
     path('', main_page, name='index'),
     path('admin/', admin.site.urls),
+    path('card/new/', card_create, name='new_card'),
 ]

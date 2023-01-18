@@ -1,0 +1,179 @@
+{% extends 'html/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+
+<div class="mt-3 p-3 border-2 border-dark shadow rounded-3">
+    <h3>Карточка абонента</h3>
+    {% for hidden in form.hidden_fields %}
+      {{ hidden }}
+    {% endfor %}
+  <form method="post">
+    <div class="form-group">
+        {% csrf_token %}
+
+    <table class="table table-borderless">
+
+    <tbody>
+        <tr>
+            <td>
+                    <label class="card_label" for="nominal">Дата заявки</label><br/>
+                        {% render_field form.nominal|append_attr:"size:5" type="date" %}
+                    {% for error in form.nominal.errors %}
+                      <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+            </td>
+            <td>
+                    <label class="card_label" for="nominal">Время заявки</label><br/>
+                    {% render_field form.nominal|append_attr:"size:5" type="time" %}
+                    {% for error in form.nominal.errors %}
+                      <span class="help-block">{{ error }}</span>
+                    {% endfor %}
+            </td>
+            <td colspan="2">
+                <label class="card_label" for="last_name">Фамилия</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+            <td colspan="3">
+                <label class="card_label" for="first_name">Имя</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+            <td colspan="3">
+                <label class="card_label" for="patronymic_name">Отчество</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+        </tr>
+
+
+        <tr>
+            <td colspan="2">
+                <label class="card_label" for="nominal">Район</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+
+            <td colspan="2">
+                <label class="card_label" for="last_name">Улица</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="first_name">Дом</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="first_name">Блок</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="first_name">Кв</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+
+           <td>
+                <label class="card_label" for="first_name">Этаж</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="first_name">Подъезд</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="first_name">Площадь</label><br/>
+                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+            </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td colspan="2">
+                <label class="card_label" for="nominal">Точка подключения</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+
+            <td>
+                <label class="card_label" for="last_name">Мощность</label><br/>
+                {% render_field form.nominal|append_attr:"size:6" type="text" %}
+            </td>
+            <td>
+                <label class="card_label" for="last_name">Номинал автомата</label><br/>
+                {% render_field form.nominal|append_attr:"size:6" type="text" %}
+            </td>
+
+            <td>
+                <label class="card_label" for="first_name">Головной ПУ</label><br/>
+                {% render_field form.nominal|append_attr:"size:10" type="text" %}
+            </td>
+            <td colspan="2">
+                <label class="card_label" for="first_name">Номер счетчика</label><br/>
+                {% render_field form.nominal|append_attr:"size:15" type="text" %}
+            </td>
+            <td colspan="3">
+                <label class="card_label" for="first_name">Тип счетчика</label><br/>
+                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+            </td>
+        </tr>
+
+
+
+
+<tr>
+    <td colspan="2">
+        <label class="card_label" for="nominal">Телефон потребителя</label><br/>
+        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+    </td>
+    <td colspan="2">
+        <label class="card_label" for="nominal">Дата и номер договора</label><br/>
+        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+    </td>
+
+    <td colspan="3">
+        <label class="card_label" for="nominal">Энергосберегающая организация</label><br/>
+        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+    </td>
+
+    <td colspan="3">
+        <label class="card_label" for="nominal">ФИО оператора</label><br/>
+        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+    </td>
+
+</tr>
+
+
+        <tr>
+            <td colspan="10">
+                <label class="card_label" for="nominal">Примечание</label><br/>
+                    {% render_field form.nominal|append_attr:"size:155" type="text" %}
+                {% for error in form.nominal.errors %}
+                  <span class="help-block">{{ error }}</span>
+                {% endfor %}
+            </td>
+        </tr>
+
+    </tbody>
+    </table>
+
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary mt-2">
+        Создать
+      </button>
+      <a href="{% url 'index' %}" class="btn btn-secondary mt-2">Отменить</a>
+    </div>
+  </form>
+    </div>
+
+</div>
+<style>
+.card_label {
+  color: #3590DC;
+  font-size: 14pt;
+  text-weight: bold;
+}
+.form-group input {
+border-color: #efefef;
+border-radius: 7px;
+border-width: 1px;
+font-size: 16pt;
+}
+</style>
+{% endblock content %}
