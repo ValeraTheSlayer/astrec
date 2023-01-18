@@ -1,0 +1,103 @@
+/* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: #F2F2F2;
+}
+
+/* Style the header links */
+.header button {
+  background-color: #F2F2F2;
+  float: left;
+  color: white;
+  text-align: center;
+  padding: 8px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 15xpx;
+  border-radius: 5px;
+  margin-left: 20px;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+
+
+/* Change the background color on mouse-over */
+.header button:hover {
+  background-color: #2B3A7E;
+  color: black;
+}
+
+/* Style the active/current link*/
+.header button.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: left;
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 500px) {
+  .header button {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+.hor-menu {
+    display: block;
+    float: left;
+    color: #474748;
+    padding: 0;
+    /* font-weight: bold; */
+}
+
+
+.hor-menu-link {
+    display: block;
+    color: #474748;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px;
+    font-size: 18px;
+}
+
+.hor-menu-link:hover {
+    color: #474748;
+    text-decoration: none;
+    background-color: #DBDBDB;
+}
+
+
+img.vert-menu {
+    width: 50px;
+}
+
+ul.vert-menu {
+    margin: 0;
+    padding: 0;
+}
+li.vert-menu {
+    margin: 0;
+    padding: 3px;
+    margin-bottom: 20px;
+    list-style-type: none;
+    text-align: center;
+}
+
+a.vert-menu {
+    color: white;
+    text-decoration: none;
+}
+
+li.vert-menu:hover {
+    color: white;
+    text-decoration: none;
+    background-color: #083759;
+}

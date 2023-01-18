@@ -1,0 +1,46 @@
+body{
+    background: #FFFFFF;
+}
+
+html,body {
+  height: 100%;
+}
+
+.inner {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 10% 88%;
+  justify-content: start;
+}
+
+
+#content {
+    width: 92%;
+    margin: 0 auto;
+    float: left;
+    /* position: relative; */
+}
+
+div.card {
+    border-radius: 0;
+}
+
+.btn-circle {
+  border: 0;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+.btn-circle.btn-lg {
+  border: 0;
+  width: 40px;
+  height: 40px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
