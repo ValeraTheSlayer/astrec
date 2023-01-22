@@ -1,5 +1,201 @@
 {% extends 'html/base.html' %}
 {% load static %}
 {% block content %}
-Some text...
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:3px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:1px 3px;word-break:normal;}
+.tg .tg-zhrj{background-color:#5484ad;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<center>
+<table class="tg" width="80%" style="margin-top: 2%">
+<thead>
+  <tr>
+    <th class="tg-zhrj">   <span style="color:white">№</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">дата</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">время</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">категория</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">адрес </span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">оператор</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">статус</span>   </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:11:38</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул. Абая 21 кв.64</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="color:black">На&nbsp;&nbsp;&nbsp;рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">2</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:09:00</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Байсеитова 34</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">3</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:08:06</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">пр. Шакарима, д.5, кв.14</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;2</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">4</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:06:29</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Торайгырова 96,&nbsp;&nbsp;&nbsp;кв.7</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;6</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">5</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:05:15</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Сыбанова, 55, кв.6</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;8</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">6</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:04:22</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Торайгырова,&nbsp;&nbsp;&nbsp;д.2, кв.25</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">7</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11:02:23</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Сейфуллина,&nbsp;&nbsp;&nbsp;д.15, кв.94</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;8</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">8</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:55:57</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Посмакова,&nbsp;&nbsp;&nbsp;д.23</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;3</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">9</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:55:41</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Беспаева,&nbsp;&nbsp;&nbsp;д.15</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:55:14</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Ибраева,&nbsp;&nbsp;&nbsp;д.122</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;4</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">11</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:53:27</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Достоевского,&nbsp;&nbsp;&nbsp;д.45, кв.12</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;2</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">12</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:48:49</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Пушкина,&nbsp;&nbsp;&nbsp;д.12, кв.24</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;2</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">13</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:48:32</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Козбагарова,&nbsp;&nbsp;&nbsp;д.16, кв.4</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">14</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:45:02</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Пушкина,&nbsp;&nbsp;&nbsp;д.32, кв.1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;6</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">15</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:44:18</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Абая,&nbsp;&nbsp;&nbsp;21 кв.14</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;2</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">16</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:42:52</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Гагарина, д.36 кв.18</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">17</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:42:28</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Терешковой,&nbsp;&nbsp;&nbsp;д.18, кв.65</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;4</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">18</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:42:25</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Найманбаева, д.15, кв.25</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;1</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">19</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">29.10.2022&nbsp;&nbsp;&nbsp;г.</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">10:42:07</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="font-weight:normal;font-style:normal;color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">ул.&nbsp;&nbsp;&nbsp;Габбасова, д.2, кв.31</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Оператор&nbsp;&nbsp;&nbsp;4</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="font-weight:normal;font-style:normal;color:black">На рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+</tbody>
+</table>
+</center>
 {% endblock content %}

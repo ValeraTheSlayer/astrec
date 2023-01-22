@@ -1,5 +1,6 @@
 {% extends 'html/base.html' %}
 {% load widget_tweaks %}
+{% load static %}
 {% block content %}
 
 <div class="mt-3 p-3 border-2 border-dark shadow rounded-3">
@@ -7,7 +8,7 @@
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
     {% endfor %}
-  <form method="post">
+  <form method="POST" href="{% url 'new_card' %}">
     <div class="form-group">
         {% csrf_token %}
 
@@ -31,53 +32,53 @@
             </td>
             <td colspan="2">
                 <label class="card_label" for="last_name">Фамилия</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                {% render_field form.last_name|append_attr:"size:30" type="text" %}
             </td>
             <td colspan="3">
                 <label class="card_label" for="first_name">Имя</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                {% render_field form.first_name|append_attr:"size:30" type="text" %}
             </td>
             <td colspan="3">
                 <label class="card_label" for="patronymic_name">Отчество</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                {% render_field form.patronymic_name|append_attr:"size:30" type="text" %}
             </td>
         </tr>
 
 
         <tr>
             <td colspan="2">
-                <label class="card_label" for="nominal">Район</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                <label class="card_label" for="district">Район</label><br/>
+                {% render_field form.district|append_attr:"size:30" type="text" %}
             </td>
 
             <td colspan="2">
-                <label class="card_label" for="last_name">Улица</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                <label class="card_label" for="street">Улица</label><br/>
+                {% render_field form.street|append_attr:"size:30" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="first_name">Дом</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="bldg">Дом</label><br/>
+                {% render_field form.bldg|append_attr:"size:4" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="first_name">Блок</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="block">Блок</label><br/>
+                {% render_field form.block|append_attr:"size:4" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="first_name">Кв</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="apt_num">Кв</label><br/>
+                {% render_field form.apt_num|append_attr:"size:4" type="text" %}
             </td>
 
            <td>
-                <label class="card_label" for="first_name">Этаж</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="floor">Этаж</label><br/>
+                {% render_field form.floor|append_attr:"size:4" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="first_name">Подъезд</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="entrance">Подъезд</label><br/>
+                {% render_field form.entrance|append_attr:"size:4" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="first_name">Площадь</label><br/>
-                {% render_field form.nominal|append_attr:"size:4" type="text" %}
+                <label class="card_label" for="square">Площадь</label><br/>
+                {% render_field form.square|append_attr:"size:4" type="text" %}
             </td>
         </tr>
 
@@ -86,30 +87,30 @@
 
         <tr>
             <td colspan="2">
-                <label class="card_label" for="nominal">Точка подключения</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                <label class="card_label" for="connection_point">Точка подключения</label><br/>
+                {% render_field form.connection_point|append_attr:"size:30" type="text" %}
             </td>
 
             <td>
-                <label class="card_label" for="last_name">Мощность</label><br/>
-                {% render_field form.nominal|append_attr:"size:6" type="text" %}
+                <label class="card_label" for="power">Мощность</label><br/>
+                {% render_field form.power|append_attr:"size:6" type="text" %}
             </td>
             <td>
-                <label class="card_label" for="last_name">Номинал автомата</label><br/>
+                <label class="card_label" for="nominal">Номинал автомата</label><br/>
                 {% render_field form.nominal|append_attr:"size:6" type="text" %}
             </td>
 
             <td>
-                <label class="card_label" for="first_name">Головной ПУ</label><br/>
-                {% render_field form.nominal|append_attr:"size:10" type="text" %}
+                <label class="card_label" for="main_point">Головной ПУ</label><br/>
+                {% render_field form.main_point|append_attr:"size:10" type="text" %}
             </td>
             <td colspan="2">
-                <label class="card_label" for="first_name">Номер счетчика</label><br/>
-                {% render_field form.nominal|append_attr:"size:15" type="text" %}
+                <label class="card_label" for="counter_number">Номер счетчика</label><br/>
+                {% render_field form.counter_number|append_attr:"size:15" type="text" %}
             </td>
             <td colspan="3">
-                <label class="card_label" for="first_name">Тип счетчика</label><br/>
-                {% render_field form.nominal|append_attr:"size:30" type="text" %}
+                <label class="card_label" for="counter_model">Тип счетчика</label><br/>
+                {% render_field form.counter_model|append_attr:"size:30" type="text" %}
             </td>
         </tr>
 
@@ -118,50 +119,125 @@
 
 <tr>
     <td colspan="2">
-        <label class="card_label" for="nominal">Телефон потребителя</label><br/>
-        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+        <label class="card_label" for="phone_number">Телефон потребителя</label><br/>
+        {% render_field form.phone_number|append_attr:"size:30" type="text" %}
     </td>
     <td colspan="2">
-        <label class="card_label" for="nominal">Дата и номер договора</label><br/>
-        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+        <label class="card_label" for="contract">Дата и номер договора</label><br/>
+        {% render_field form.contract|append_attr:"size:30" type="text" %}
     </td>
 
     <td colspan="3">
-        <label class="card_label" for="nominal">Энергосберегающая организация</label><br/>
-        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+        <label class="card_label" for="organization">Энергосберегающая организация</label><br/>
+        {% render_field form.organization|append_attr:"size:30" type="text" %}
     </td>
 
     <td colspan="3">
-        <label class="card_label" for="nominal">ФИО оператора</label><br/>
-        {% render_field form.nominal|append_attr:"size:30" type="text" %}
+        <label class="card_label" for="operator">ФИО оператора</label><br/>
+        {% render_field form.operator|append_attr:"size:30" type="text" %}
     </td>
 
-</tr>
+    </tr>
 
 
-        <tr>
-            <td colspan="10">
-                <label class="card_label" for="nominal">Примечание</label><br/>
-                    {% render_field form.nominal|append_attr:"size:155" type="text" %}
-                {% for error in form.nominal.errors %}
-                  <span class="help-block">{{ error }}</span>
-                {% endfor %}
-            </td>
-        </tr>
+    <tr>
+        <td colspan="10">
+            <label class="card_label" for="comment">Примечание</label><br/>
+                {% render_field form.comment|append_attr:"size:155" type="text" %}
+            {% for error in form.nominal.errors %}
+              <span class="help-block">{{ error }}</span>
+            {% endfor %}
+        </td>
+    </tr>
 
     </tbody>
     </table>
 
     </div>
     <div class="form-group">
+
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label for="image" class="text-center pt-1 filebox">
+                        <input type="file" name="image" id="image" style="display:none;"/>
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Договор на помещение</b>
+                    </label>
+                </div>
+            </div>
+    </div>
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center pt-1">
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Технический паспорт</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center pt-1">
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Удостоверение личности</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center pt-1">
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Техническое условие</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center pt-1">
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Акт раздела границы</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="text-center pt-1">
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
+                        <b>Другие документы</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+    <br clear="all"/>
+
       <button type="submit" class="btn btn-primary mt-2">
-        Создать
+        СОЗДАТЬ И НАПРАВИТЬ В УПОЛНОМОЧЕННОЕ ПОДРАЗДЕЛЕНИЕ
       </button>
       <a href="{% url 'index' %}" class="btn btn-secondary mt-2">Отменить</a>
     </div>
-  </form>
-    </div>
 
+  </form>
+    <center>
+        <hr/>
+        <button class="btn btn-success">ОПЕРАТОР</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">ВЕДУЩИЙ ИНЖЕНЕР</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">НАЧАЛЬНИК ОТДЕЛА</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">НАЧАЛЬНИК СЛУЖБЫ</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">НАЧАЛЬНИК СКПЭ</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">ОПЕРАТОР</button>&nbsp;&nbsp;
+        <button class="btn btn-secondary">КОНТРОЛЕР</button>&nbsp;
+    </center>
 </div>
 <style>
 .card_label {
@@ -169,11 +245,18 @@
   font-size: 14pt;
   text-weight: bold;
 }
-.form-group input {
+.form-group input, textarea {
 border-color: #efefef;
 border-radius: 7px;
 border-width: 1px;
 font-size: 16pt;
+}
+.card {
+margin: 1% 1% 1% 0%;
+float: left;
+}
+.filebox:hover {
+cursor: pointer;
 }
 </style>
 {% endblock content %}
