@@ -1,6 +1,7 @@
 import logging
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.contrib import messages
 from django.views.generic import View
 from .models import Card
 from .forms import SubscriberCardForm as CardForm
@@ -27,9 +28,12 @@ def card_create(request):
         form = CardForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Заявка успешно создана!')
             return HttpResponseRedirect('/cards/')
         else:
             logger.debug(form.errors)
+            messages.add_message(request, messages.ERROR, 'При добавлении карточки обнаружены ошибки!'
+                                                          'Проверьте заполнение.')
     else:
         form = CardForm()
 
