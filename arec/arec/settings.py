@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # custom apps
     'card',
-    'approval'
+    'approval',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -114,6 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'users.User'
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/

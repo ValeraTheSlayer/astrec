@@ -9,6 +9,5 @@ class User(AbstractUser):
         ('HEAD OF SERVICE', 'НАЧАЛЬНИК СЛУЖБЫ'),
         ('HEAD OF SCPE', 'НАЧАЛЬНИК СКПЭ'),
         ('CONTROLLER', 'КОНТРОЛЕР'),
-        ('OPERATOR', 'ОПЕРАТОР'),
     )
     position = models.CharField(max_length=30, choices=CHOICES)
