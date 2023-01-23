@@ -7,7 +7,8 @@ from .views import SignUp
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path('signup/', SignUp.as_view(), name='signup'),
+    path('signup/', SignUp.as_view(template_name='signup.html'),
+         name='signup'),
     path(
         'logout/',
         views.LogoutView.as_view(template_name='logged_out.html'),

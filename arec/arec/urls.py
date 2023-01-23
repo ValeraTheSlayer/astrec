@@ -25,5 +25,4 @@ urlpatterns = [
     path('auth/', include('users.urls', namespace=UsersConfig.name)),
     path('cards/', card_list, name='card_list'),
     path('card/new/', card_create, name='new_card'),
-
 ]
