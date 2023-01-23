@@ -20,7 +20,9 @@ def main_page(request):
 
 
 def card_list(request):
-    return render(request, 'html/index.html')
+    cards = Card.objects.all()
+    return render(request, 'card/card_list.html',
+                  {'cards': cards})
 
 
 def card_create(request):

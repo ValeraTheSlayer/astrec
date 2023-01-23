@@ -1,0 +1,65 @@
+{% extends 'html/base.html' %}
+{% load static %}
+{% block content %}
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:3px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:1px 3px;word-break:normal;}
+.tg .tg-zhrj{background-color:#5484ad;border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+</style>
+<center>
+<table class="tg" width="80%" style="margin-top: 2%">
+<thead>
+  <tr>
+    <th class="tg-zhrj">   <span style="color:white">№</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Дата и время заявки</span>   </th>
+    <th class="tg-zhrj" >   <span style="color:white">ФИО абонента&nbsp;</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Конт. телефон</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Адрес </span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Этаж</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Площадь</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Точка</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Мощность</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Номинал</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Основной ПУ</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Номер счётчика</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Тип счётчика</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Договор</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Организация</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Оператор</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Категория</span>   </th>
+    <th class="tg-zhrj">   <span style="color:white">Cтатус</span>   </th>
+  </tr>
+</thead>
+<tbody>
+
+{% for bid in cards %}
+  <tr>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ forloop.counter }}</span></td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.created_at | date:"d.m.y H:i" }}</span></td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.phone_number }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.floor }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.square }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.connection_point }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.power }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.nominal }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.main_point }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.counter_number }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.counter_model }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.contract }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.organization }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.operator }}</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp;<span style="color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
+    <td class="tg-0pky">&nbsp; <span style="color:black">На&nbsp;&nbsp;&nbsp;рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+  </tr>
+{% endfor %}
+
+</tbody>
+</table>
+</center>
+{% endblock content %}

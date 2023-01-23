@@ -65,3 +65,6 @@ class Card(models.Model):
                               blank=True,
                               null=True)
     # TODO: relations to the Approval model
+
+    class Meta:
+        ordering = ['-created_at']
