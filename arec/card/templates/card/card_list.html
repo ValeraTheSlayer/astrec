@@ -11,51 +11,51 @@
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 </style>
 <center>
-<table class="tg" width="80%" style="margin-top: 2%">
+<table class="table table-striped table-hover table-bordered mt-3">
 <thead>
   <tr>
-    <th class="tg-zhrj">   <span style="color:white">№</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Дата и время заявки</span>   </th>
-    <th class="tg-zhrj" >   <span style="color:white">ФИО абонента&nbsp;</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Конт. телефон</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Адрес </span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Этаж</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Площадь</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Точка</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Мощность</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Номинал</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Основной ПУ</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Номер счётчика</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Тип счётчика</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Договор</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Организация</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Оператор</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Категория</span>   </th>
-    <th class="tg-zhrj">   <span style="color:white">Cтатус</span>   </th>
+    <th>№</th>
+    <th>Дата и время заявки</th>
+    <th>ФИО абонента</th>
+    <th>Конт. телефон</th>
+    <th>Адрес </th>
+<!--    <th>Этаж</th>-->
+<!--    <th>Площадь</th>-->
+<!--    <th>Точка</th>-->
+<!--    <th>Мощность</th>-->
+<!--    <th>Номинал</th>-->
+<!--    <th>Основной ПУ</th>-->
+    <th>Номер счётчика</th>
+    <th>Тип счётчика</th>
+    <th>Договор</th>
+    <th>Организация</th>
+    <th>Оператор</th>
+    <th>Категория</th>
+    <th>Cтатус</th>
   </tr>
 </thead>
 <tbody>
 
 {% for bid in cards %}
   <tr>
-    <td class="tg-0pky">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card' cid=bid.id %}">{{ bid.id }}</a></span></td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.created_at | date:"d.m.y H:i" }}</span></td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.phone_number }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.floor }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.square }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.connection_point }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.power }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.nominal }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.main_point }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.counter_number }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.counter_model }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.contract }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.organization }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.operator }}</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp;<span style="color:black">Постановка на учет</span>&nbsp;&nbsp;&nbsp;</td>
-    <td class="tg-0pky">&nbsp; <span style="color:black">На&nbsp;&nbsp;&nbsp;рассмотрении</span>&nbsp;&nbsp;&nbsp;</td>
+    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card' cid=bid.id %}">{{ bid.id }}</a></td>
+    <td>{{ bid.created_at | date:"d.m.y H:i" }}</td>
+    <td>{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</td>
+    <td>{{ bid.phone_number }}</td>
+    <td>{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</td>
+<!--    <td>{{ bid.floor }}</td>-->
+<!--    <td>{{ bid.square }}</td>-->
+<!--    <td>{{ bid.connection_point }}</td>-->
+<!--    <td>{{ bid.power }}</td>-->
+<!--    <td>{{ bid.nominal }}</td>-->
+<!--    <td>{{ bid.main_point }}</td>-->
+    <td>{{ bid.counter_number }}</td>
+    <td>{{ bid.counter_model }}</td>
+    <td>{{ bid.contract }}</td>
+    <td>{{ bid.organization }}</td>
+    <td>{{ bid.operator }}</td>
+    <td>Постановка на учет</td>
+    <td>На рассмотрении</td>
   </tr>
 {% endfor %}
 
