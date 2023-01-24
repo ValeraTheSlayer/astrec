@@ -1,25 +1,234 @@
 {% extends 'html/base.html' %}
 {% load static %}
 {% block content %}
-<div class="card">
-    Карточка: № {{ card.id }}<br>
-    Дата заявки: {{ card.created_at | date:"d.m.y H:i" }}<br>
-    ФИО {{ card.last_name }} {{ card.first_name }} {{ card.patronymic_name }}<br>
-    Контактный номер {{ card.phone_number }}<br>
-    Адрес: {{ card.street }}, д. {{ card.bldg }} - {{ card.apt_num }}<br>
-    Этаж: {{ card.floor }}<br>
-    Площадь: {{ card.square }}<br>
-    Точка подключения: {{ card.connection_point }}<br>
-    Мощность: {{ card.power }}<br>
-    {{ card.nominal }}<br>
-    {{ card.main_point }}<br>
-    {{ card.counter_number }}<br>
-    {{ card.counter_model }}<br>
-    {{ card.contract }}<br>
-    {{ card.organization }}<br>
-    {{ card.operator }}<br>
-    {% for scan in scans %}
-      <a href="/{{ scan.doc_file }}" target="_blank">{{ scan.get_doctype_display }}</a>
-    {% endfor %}
+<div class="card mt-2 rounded-2 shadow-sm">
+    <div class="card-header">
+        <h5>Карточка: № {{ card.id }}</h5>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>Дата и время заявки</label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.created_at | date:"d.m.y H:i" }}
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>ФИО абонента</label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.last_name }} {{ card.first_name }} {{ card.patronymic_name }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>Контактный номер</label>
+            </div>
+            <div class="col-10 col-sm-10">
+             {{ card.phone_number }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>Адрес</label>
+            </div>
+            <div class="col-10 col-sm-10">
+               {{ card.street }}, д. {{ card.bldg }} - {{ card.apt_num }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Этаж
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.floor }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Площадь
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.square }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Точка подключения
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.connection_point }}
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Мощность
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.power }}
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Номинал
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.nominal }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Основной ПУ
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.main_point }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Номер счётчика
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.counter_number }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Тип счётчика
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.counter_model }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Дата и номер договора
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.contract }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Энергосберегающая организация
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.organization }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    ФИО оператора
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.operator }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Примечание
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+                 {{card.comment }}
+             </div>
+        </div>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row">
+            <div class="col-2 col-sm-2 card-label-col">
+                <label>
+                    Приложенные документы
+                </label>
+            </div>
+            <div class="col-10 col-sm-10">
+
+                {% for scan in scans %}
+                    <a href="/{{ scan.doc_file }}" target="_blank">{{ scan.get_doctype_display }}</a><br>
+                {% endfor %}
+             </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="d-flex justify-content-center">
+        <div class="mb-3">
+            <button class="btn btn-success">ОПЕРАТОР</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">ВЕДУЩИЙ ИНЖЕНЕР</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">НАЧАЛЬНИК ОТДЕЛА</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">НАЧАЛЬНИК СЛУЖБЫ</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">НАЧАЛЬНИК СКПЭ</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">ОПЕРАТОР</button>&nbsp;&nbsp;
+            <button class="btn btn-secondary">КОНТРОЛЛЕР</button>
+        </div>
+    </div>
+
 </div>
+<style type="text/css">
+.card-label-col {color: black;}
+</style>
 {% endblock content %}
