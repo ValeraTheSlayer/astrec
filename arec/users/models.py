@@ -3,11 +3,11 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    CHOICES = (
+    POSITIONS = (
         ('OPERATOR', 'ОПЕРАТОР'),
-        ('LEAD ENGINEER', 'ВЕДУЩИЙ ИНЖЕНЕР'),
-        ('HEAD OF SERVICE', 'НАЧАЛЬНИК СЛУЖБЫ'),
-        ('HEAD OF SCPE', 'НАЧАЛЬНИК СКПЭ'),
-        ('CONTROLLER', 'КОНТРОЛЕР'),
+        ('LEAD_ENGINEER', 'ВЕДУЩИЙ ИНЖЕНЕР'),
+        ('HEAD_SERVICE', 'НАЧАЛЬНИК СЛУЖБЫ'),
+        ('HEAD_SCPE', 'НАЧАЛЬНИК СКПЭ'),
+        ('CONTROLLER', 'КОНТРОЛЛЕР'),
     )
-    position = models.CharField(max_length=30, choices=CHOICES)
+    position = models.CharField(max_length=30, choices=POSITIONS)
