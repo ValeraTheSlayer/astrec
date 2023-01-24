@@ -1,0 +1,25 @@
+{% extends 'html/base.html' %}
+{% load static %}
+{% block content %}
+<div class="card">
+    Карточка: № {{ card.id }}<br>
+    Дата заявки: {{ card.created_at | date:"d.m.y H:i" }}<br>
+    ФИО {{ card.last_name }} {{ card.first_name }} {{ card.patronymic_name }}<br>
+    Контактный номер {{ card.phone_number }}<br>
+    Адрес: {{ card.street }}, д. {{ card.bldg }} - {{ card.apt_num }}<br>
+    Этаж: {{ card.floor }}<br>
+    Площадь: {{ card.square }}<br>
+    Точка подключения: {{ card.connection_point }}<br>
+    Мощность: {{ card.power }}<br>
+    {{ card.nominal }}<br>
+    {{ card.main_point }}<br>
+    {{ card.counter_number }}<br>
+    {{ card.counter_model }}<br>
+    {{ card.contract }}<br>
+    {{ card.organization }}<br>
+    {{ card.operator }}<br>
+    {% for scan in scans %}
+      <a href="/{{ scan.doc_file }}" target="_blank">{{ scan.get_doctype_display }}</a>
+    {% endfor %}
+</div>
+{% endblock content %}

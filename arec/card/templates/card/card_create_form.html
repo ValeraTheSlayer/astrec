@@ -8,7 +8,7 @@
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
     {% endfor %}
-  <form method="POST" href="{% url 'new_card' %}">
+  <form method="POST" href="{% url 'new_card' %}" enctype="multipart/form-data">
     <div class="form-group">
         {% csrf_token %}
 
@@ -159,8 +159,8 @@
     <div class="card rounded-3" style="width: 150px; margin-top: 1%">
             <div class="row">
                 <div class="col-sm-12">
-                    <label for="image" class="text-center pt-1 filebox">
-                        <input type="file" name="image" id="image" style="display:none;"/>
+                    <label for="realty_contract" class="text-center pt-1 filebox">
+                        <input type="file" name="realty_contract" id="realty_contract" style="display:none;"/>
                         <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
                         <b>Договор на помещение</b>
                     </label>
@@ -236,7 +236,7 @@
         <button class="btn btn-secondary">НАЧАЛЬНИК СЛУЖБЫ</button>&nbsp;&nbsp;
         <button class="btn btn-secondary">НАЧАЛЬНИК СКПЭ</button>&nbsp;&nbsp;
         <button class="btn btn-secondary">ОПЕРАТОР</button>&nbsp;&nbsp;
-        <button class="btn btn-secondary">КОНТРОЛЕР</button>&nbsp;
+        <button class="btn btn-secondary">КОНТРОЛЛЕР</button>&nbsp;
     </center>
 </div>
 <style>

@@ -38,7 +38,7 @@
 
 {% for bid in cards %}
   <tr>
-    <td class="tg-0pky">&nbsp;<span style="color:black">{{ forloop.counter }}</span></td>
+    <td class="tg-0pky">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card' cid=bid.id %}">{{ bid.id }}</a></span></td>
     <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.created_at | date:"d.m.y H:i" }}</span></td>
     <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</span>&nbsp;&nbsp;&nbsp;</td>
     <td class="tg-0pky">&nbsp;<span style="color:black">{{ bid.phone_number }}</span>&nbsp;&nbsp;&nbsp;</td>

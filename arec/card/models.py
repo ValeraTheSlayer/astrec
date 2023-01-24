@@ -1,26 +1,15 @@
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
-
 fs = FileSystemStorage(location='/code/files')
-
-
-class DocScan(models.Model):
-    """
-    Прикрепляемые к заявке документы
-    """
-    DOC_TYPES = (
-        ('contract', 'Договор на помещение'),
-        ('tech_passport', 'Технический паспорт'),
-        ('identification', 'Удостоверение личности'),
-        ('tech_condition', 'Техническое условие'),
-        ('dividing_act', 'Акт раздела границы'),
-        ('others', 'Другие документы'),
-    )
-
-    doctype = models.CharField(max_length=15, choices=DOC_TYPES)
-    doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
-    upload_at = models.DateTimeField(auto_now_add=True)
+DOC_TYPES = (
+    ('realty_contract', 'Договор на помещение'),
+    ('tech_passport', 'Технический паспорт'),
+    ('identification', 'Удостоверение личности'),
+    ('tech_condition', 'Техническое условие'),
+    ('dividing_act', 'Акт раздела границы'),
+    ('others', 'Другие документы'),
+)
 
 
 class Card(models.Model):
@@ -60,11 +49,18 @@ class Card(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    files = models.ForeignKey(DocScan,
-                              on_delete=models.SET_NULL,
-                              blank=True,
-                              null=True)
     # TODO: relations to the Approval model
 
     class Meta:
         ordering = ['-created_at']
+
+
+class DocScan(models.Model):
+    """
+    Прикрепляемые к заявке документы
+    """
+    doctype = models.CharField(max_length=15, choices=DOC_TYPES)
+    doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
+    upload_at = models.DateTimeField(auto_now_add=True)
+
+    card = models.ForeignKey(Card, on_delete=models.CASCADE)

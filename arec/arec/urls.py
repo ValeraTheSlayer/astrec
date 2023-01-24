@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
-from card.views import main_page, card_create, card_list
+from django.urls import path, re_path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from card.views import main_page, card_create, card_list, card_detail
 from users.apps import UsersConfig
 
 
@@ -25,4 +27,5 @@ urlpatterns = [
     path('auth/', include('users.urls', namespace=UsersConfig.name)),
     path('cards/', card_list, name='card_list'),
     path('card/new/', card_create, name='new_card'),
-]
+    re_path(r'^card/(?P<cid>\d+)/$', card_detail, name='card'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
