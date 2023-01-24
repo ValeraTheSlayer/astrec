@@ -57,5 +57,5 @@ def card_create(request):
                                                           'Проверьте заполнение.')
     else:
         form = CardForm()
-
-    return render(request, 'card/card_create_form.html', {'form': form})
+    doc_types = [{'name': v[0], 'label': v[1]} for v in DOC_TYPES]
+    return render(request, 'card/card_create_form.html', {'form': form, 'doc_types': doc_types})

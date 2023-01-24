@@ -155,69 +155,20 @@
 
     </div>
     <div class="form-group">
-
+    {% for scan_attach in doc_types %}
     <div class="card rounded-3" style="width: 150px; margin-top: 1%">
             <div class="row">
                 <div class="col-sm-12">
-                    <label for="realty_contract" class="text-center pt-1 filebox">
-                        <input type="file" name="realty_contract" id="realty_contract" style="display:none;"/>
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Договор на помещение</b>
+                    <label for="{{ scan_attach.name }}" class="text-center pt-1 filebox">
+                        <input type="file" name="{{ scan_attach.name }}" id="{{ scan_attach.name }}" style="display:none;"/>
+                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"/><br/>
+                        <b>{{ scan_attach.label }}</b>
                     </label>
                 </div>
             </div>
     </div>
-    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center pt-1">
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Технический паспорт</b>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center pt-1">
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Удостоверение личности</b>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center pt-1">
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Техническое условие</b>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center pt-1">
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Акт раздела границы</b>
-                    </div>
-                </div>
-            </div>
-    </div>
-    <div class="card rounded-3" style="width: 150px; margin-top: 1%">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="text-center pt-1">
-                        <img class="" src="{% static 'img/proposals.png' %}" alt="Файл"><br/>
-                        <b>Другие документы</b>
-                    </div>
-                </div>
-            </div>
-    </div>
 
+    {% endfor %}
 
     <br clear="all"/>
 
