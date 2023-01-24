@@ -1,6 +1,12 @@
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from .forms import CreationForm
+from django.contrib.auth.views import LoginView
+from .forms import CreationForm, UserAuthenticationForm
+
+
+class CustomLoginView(LoginView):
+    authentication_form = UserAuthenticationForm
+    template_name = 'users/loggin.html'
 
 
 class SignUp(CreateView):
