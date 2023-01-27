@@ -60,14 +60,14 @@ class Card(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    individual_entity = models.ForeignKey('CardIndividual',
+    individual_entity = models.OneToOneField('CardIndividual',
                                           on_delete=models.SET_NULL,
                                           null=True,
                                           blank=True,
                                           related_name='individuals')
-    legal_entity = models.ForeignKey('CardLegalEntity',
+    legal_entity = models.OneToOneField('CardLegalEntity',
                                      on_delete=models.SET_NULL, null=True,
-                                     blank=True, unique=True,
+                                     blank=True,
                                      related_name='legal_entities')
 
     # TODO: relations to the Approval model
