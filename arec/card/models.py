@@ -1,4 +1,5 @@
 from django.core.files.storage import FileSystemStorage
+from django.core.validators import RegexValidator
 from django.db import models
 
 fs = FileSystemStorage(location='/code/files')
@@ -12,10 +13,17 @@ DOC_TYPES = (
 )
 
 TASK = (
-    ('test', 'test'),
+    ('Cмена владельца', 'Cмена владельца'),
+    ('Первичная регистрация', 'Первичная регистрация'),
+    ('Иное', 'Иное'),
 )
+
 OBJECT_CATEGORY = (
-    ('test', 'test'),
+    ('Гараж', 'Гараж'),
+    ('Дом', 'Дом'),
+    ('Офис', 'Офис'),
+    ('Производственная база', 'Производственная база'),
+    ('Иное', 'Иное'),
 )
 
 
@@ -29,8 +37,11 @@ class Card(models.Model):
     object_category = models.CharField(max_length=30, null=True,
                                        blank=True, choices=OBJECT_CATEGORY)
 
+    iin = models.CharField(validators=[RegexValidator(
+        r'^\d{12}$', 'Введите корректный иин')], max_length=12)
     phone_number = models.PositiveIntegerField()
 
+    city = models.CharField(max_length=125)
     district = models.CharField(max_length=125)
     street = models.CharField(max_length=125)
     bldg = models.CharField(
@@ -61,14 +72,14 @@ class Card(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     individual_entity = models.OneToOneField('CardIndividual',
-                                          on_delete=models.SET_NULL,
-                                          null=True,
-                                          blank=True,
-                                          related_name='individuals')
+                                             on_delete=models.SET_NULL,
+                                             null=True,
+                                             blank=True,
+                                             )
     legal_entity = models.OneToOneField('CardLegalEntity',
-                                     on_delete=models.SET_NULL, null=True,
-                                     blank=True,
-                                     related_name='legal_entities')
+                                        on_delete=models.SET_NULL, null=True,
+                                        blank=True,
+                                        )
 
     # TODO: relations to the Approval model
 
