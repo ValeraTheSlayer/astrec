@@ -38,22 +38,22 @@
 
 {% for bid in cards %}
   <tr>
-    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card' cid=bid.id %}">{{ bid.id }}</a></td>
-    <td>{{ bid.created_at | date:"d.m.y H:i" }}</td>
+    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.card.id }}</a></td>
+    <td>{{ bid.card.created_at | date:"d.m.y H:i" }}</td>
     <td>{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</td>
-    <td>{{ bid.phone_number }}</td>
-    <td>{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</td>
+    <td>{{ bid.card.phone_number }}</td>
+    <td>{{ bid.card.street }}, д. {{ bid.card.bldg }} - {{ bid.card.apt_num }}</td>
 <!--    <td>{{ bid.floor }}</td>-->
 <!--    <td>{{ bid.square }}</td>-->
 <!--    <td>{{ bid.connection_point }}</td>-->
 <!--    <td>{{ bid.power }}</td>-->
 <!--    <td>{{ bid.nominal }}</td>-->
 <!--    <td>{{ bid.main_point }}</td>-->
-    <td>{{ bid.counter_number }}</td>
-    <td>{{ bid.counter_model }}</td>
-    <td>{{ bid.contract }}</td>
-    <td>{{ bid.organization }}</td>
-    <td>{{ bid.operator }}</td>
+    <td>{{ bid.card.counter_number }}</td>
+    <td>{{ bid.card.counter_model }}</td>
+    <td>{{ bid.card.contract }}</td>
+    <td>{{ bid.card.organization }}</td>
+    <td>{{ bid.card.operator }}</td>
     <td>Постановка на учет</td>
     <td>На рассмотрении</td>
   </tr>
