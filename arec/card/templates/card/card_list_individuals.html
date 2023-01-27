@@ -15,9 +15,9 @@
 <thead>
   <tr>
     <th>№</th>
-    <th>Дата и время заявки</th>
-    <th>ФИО абонента</th>
-    <th>Конт. телефон</th>
+    <th>Дата</th>
+    <th>Время</th>
+    <th>Категория</th>
     <th>Адрес </th>
 <!--    <th>Этаж</th>-->
 <!--    <th>Площадь</th>-->
@@ -25,23 +25,18 @@
 <!--    <th>Мощность</th>-->
 <!--    <th>Номинал</th>-->
 <!--    <th>Основной ПУ</th>-->
-    <th>Номер счётчика</th>
-    <th>Тип счётчика</th>
-    <th>Договор</th>
-    <th>Организация</th>
     <th>Оператор</th>
-    <th>Категория</th>
-    <th>Cтатус</th>
+    <th>Статус</th>
   </tr>
 </thead>
 <tbody>
 
 {% for bid in cards %}
   <tr>
-    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.card.id }}</a></td>
-    <td>{{ bid.card.created_at | date:"d.m.y H:i" }}</td>
-    <td>{{ bid.last_name }} {{ bid.first_name }} {{ bid.patronymic_name }}</td>
-    <td>{{ bid.card.phone_number }}</td>
+    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.id }}</a></td>
+    <td>{{ bid.card.created_at | date:"d.m.y" }}</td>
+    <td>{{ bid.card.created_at | date:"H:i" }}</td>
+    <td>{{ bid.card.object_category }}</td>
     <td>{{ bid.card.street }}, д. {{ bid.card.bldg }} - {{ bid.card.apt_num }}</td>
 <!--    <td>{{ bid.floor }}</td>-->
 <!--    <td>{{ bid.square }}</td>-->
@@ -49,12 +44,7 @@
 <!--    <td>{{ bid.power }}</td>-->
 <!--    <td>{{ bid.nominal }}</td>-->
 <!--    <td>{{ bid.main_point }}</td>-->
-    <td>{{ bid.card.counter_number }}</td>
-    <td>{{ bid.card.counter_model }}</td>
-    <td>{{ bid.card.contract }}</td>
-    <td>{{ bid.card.organization }}</td>
     <td>{{ bid.card.operator }}</td>
-    <td>Постановка на учет</td>
     <td>На рассмотрении</td>
   </tr>
 {% endfor %}
