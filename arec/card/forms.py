@@ -5,10 +5,12 @@ from .models import Card, CardIndividual, CardLegalEntity
 
 
 class SubscriberCardForm(ModelForm):
+    created_date = forms.DateField()
+    created_time = forms.TimeField()
+
     class Meta:
         model = Card
-        # exclude = ['created_at', 'updated_at']
-        exclude = ('updated_at',)
+        exclude = ('updated_at', 'created_at',)
         widgets = {
             'comment': TextInput(),
         }

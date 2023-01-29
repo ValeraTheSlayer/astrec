@@ -16,12 +16,12 @@
     <div class="col-md-3">
         <div class="row">
             <div class="col-6">
-              <label class="card_label" for="nominal" style="min-width: 80pt">Дата заявки</label><br/>
-             {% render_field form.nominal|append_attr:"size:auto" type="date" style="width: 6em;" %}
+              <label class="card_label" for="created_date" style="min-width: 80pt">Дата заявки</label><br/>
+             {% render_field form.created_date|append_attr:"size:auto" type="date" style="width: 6em;" %}
             </div>
             <div class="col-6">
-                <label class="card_label" for="nominal" style="min-width: 80pt">Время заявки</label><br/>
-                {% render_field form.nominal|append_attr:"size:auto" type="time" %}
+                <label class="card_label" for="created_time" style="min-width: 80pt">Время заявки</label><br/>
+                {% render_field form.created_time|append_attr:"size:auto" type="time" %}
             </div>
             </div>
   </div>
@@ -212,6 +212,10 @@ cursor: pointer;
 }
 </style>
 <script>
-    document.getElementById('id_nominal').valueAsDate = new Date();
+      let current_datetime = new Date();
+      document.getElementById('id_created_date').valueAsDate = current_datetime;
+      let current_hours = current_datetime.getHours() > 9 ? current_datetime.getHours() : "0" + current_datetime.getHours();
+      let current_minutes = current_datetime.getMinutes() > 9 ? current_datetime.getMinutes() : "0" + current_datetime.getMinutes();
+      document.getElementById('id_created_time').value =  current_hours + ":" + current_minutes;
 </script>
 {% endblock content %}

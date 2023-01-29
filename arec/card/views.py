@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
@@ -53,9 +54,14 @@ def card_create_individual(request):
     if request.method == "POST":
         form = CardForm(request.POST)
         form_individual = CardIndividualForm(request.POST)
+        print('created date', form)
         if form.is_valid() and form_individual.is_valid():
             card_individual_obj = form_individual.save()
             card_obj = form.save(commit=False)
+            card_obj.created_at = datetime.strptime(request.POST.get('created_date')
+                                                    + ', '
+                                                    + request.POST.get('created_time'),
+                                                    '%Y-%m-%d, %H:%M')
             card_obj.individual_entity = card_individual_obj
             card_obj.save()
             for doc in DOC_TYPES:

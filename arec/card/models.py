@@ -68,7 +68,7 @@ class Card(models.Model):
         max_length=250)  # ФИО оператора TODO: as relation with User model
     comment = models.TextField()
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=False)
     updated_at = models.DateTimeField(auto_now=True)
 
     individual_entity = models.OneToOneField('CardIndividual',
