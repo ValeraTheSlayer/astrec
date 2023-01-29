@@ -1,4 +1,5 @@
 from django.core.files.storage import FileSystemStorage
+from django.core.validators import RegexValidator
 from django.db import models
 
 fs = FileSystemStorage(location='/code/files')
@@ -11,23 +12,43 @@ DOC_TYPES = (
     ('others', 'Другие документы'),
 )
 
+TASK = (
+    ('Cмена владельца', 'Cмена владельца'),
+    ('Первичная регистрация', 'Первичная регистрация'),
+    ('Иное', 'Иное'),
+)
+
+OBJECT_CATEGORY = (
+    ('Гараж', 'Гараж'),
+    ('Дом', 'Дом'),
+    ('Офис', 'Офис'),
+    ('Производственная база', 'Производственная база'),
+    ('Иное', 'Иное'),
+)
+
 
 class Card(models.Model):
     """
     Основная таблица заявки абонента
     """
-    # ФИО поля
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    patronymic_name = models.CharField(max_length=50)
 
+    task = models.CharField(max_length=60, null=True,
+                            blank=True, choices=TASK)
+    object_category = models.CharField(max_length=30, null=True,
+                                       blank=True, choices=OBJECT_CATEGORY)
+
+    iin = models.CharField(validators=[RegexValidator(
+        r'^\d{12}$', 'Введите корректный иин')], max_length=12)
     phone_number = models.PositiveIntegerField()
 
+    city = models.CharField(max_length=125)
     district = models.CharField(max_length=125)
     street = models.CharField(max_length=125)
-    bldg = models.CharField(max_length=8)  # номер дома, CharField, т.к. включены дроби, буквы и т.п.
+    bldg = models.CharField(
+        max_length=8)  # номер дома, CharField, т.к. включены дроби, буквы и т.п.
     block = models.CharField(max_length=8)
-    apt_num = models.CharField(max_length=6)  # номер квартиры, CharField, т.к. тоже бывает с буквами
+    apt_num = models.CharField(
+        max_length=6)  # номер квартиры, CharField, т.к. тоже бывает с буквами
 
     floor = models.PositiveIntegerField()
     entrance = models.PositiveSmallIntegerField(default=1)  # номер подъезда
@@ -43,11 +64,22 @@ class Card(models.Model):
 
     contract = models.CharField(max_length=50)  # номер и дата договора
     organization = models.CharField(max_length=250)
-    operator = models.CharField(max_length=250)  # ФИО оператора TODO: as relation with User model
+    operator = models.CharField(
+        max_length=250)  # ФИО оператора TODO: as relation with User model
     comment = models.TextField()
 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=False)
     updated_at = models.DateTimeField(auto_now=True)
+
+    individual_entity = models.OneToOneField('CardIndividual',
+                                             on_delete=models.SET_NULL,
+                                             null=True,
+                                             blank=True,
+                                             )
+    legal_entity = models.OneToOneField('CardLegalEntity',
+                                        on_delete=models.SET_NULL, null=True,
+                                        blank=True,
+                                        )
 
     # TODO: relations to the Approval model
 
@@ -64,3 +96,13 @@ class DocScan(models.Model):
     upload_at = models.DateTimeField(auto_now_add=True)
 
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
+
+
+class CardIndividual(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    patronymic_name = models.CharField(max_length=50)
+
+
+class CardLegalEntity(models.Model):
+    company_name = models.CharField(max_length=100)

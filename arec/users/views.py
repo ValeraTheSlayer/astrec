@@ -11,5 +11,5 @@ class CustomLoginView(LoginView):
 
 class SignUp(CreateView):
     form_class = CreationForm
-    success_url = reverse_lazy('card_list')
+    success_url = reverse_lazy('index')
     template_name = 'users/signup.html'

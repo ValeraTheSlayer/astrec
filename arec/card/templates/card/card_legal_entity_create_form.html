@@ -8,7 +8,7 @@
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
     {% endfor %}
-  <form method="POST" href="{% url 'new_card' %}" enctype="multipart/form-data">
+  <form method="POST" href="{% url 'new_card_legal_entity' %}" enctype="multipart/form-data">
     <div class="form-group">
         {% csrf_token %}
 
@@ -31,116 +31,134 @@
                     {% endfor %}
             </td>
             <td colspan="2">
-                <label class="card_label" for="last_name">Фамилия</label><br/>
-                {% render_field form.last_name|append_attr:"size:25" type="text" %}
+
+                <label class="card_label" for="last_name">TOO</label><br/>
+                {% render_field form_legal_entity.company_name|append_attr:"size:30" type="text" %}
             </td>
-            <td colspan="3">
-                <label class="card_label" for="first_name">Имя</label><br/>
-                {% render_field form.first_name|append_attr:"size:25" type="text" %}
+
+        </tr>
+
+        <tr>
+            <td colspan="1">
+                <label class="card_label" for="iin">БИН</label><br/>
+                {% render_field form.iin|append_attr:"size:30" type="text" %}
             </td>
-            <td colspan="3">
-                <label class="card_label" for="patronymic_name">Отчество</label><br/>
-                {% render_field form.patronymic_name|append_attr:"size:25" type="text" %}
+
+            <td colspan="1">
+                <label class="card_label" for="task">Задание</label><br/>
+                {% render_field form.task %}
+            </td>
+            <td colspan="1">
+                <label class="card_label" for="object_category">Категория объекта</label><br/>
+                {% render_field form.object_category %}
+
             </td>
         </tr>
 
 
         <tr>
-            <td colspan="2" style="width: 8%">
-                <label class="card_label" for="district">Район</label><br/>
-                {% render_field form.district|append_attr:"size:25" type="text" %}
-            </td>
 
-            <td colspan="2">
-                <label class="card_label" for="street">Улица</label><br/>
-                {% render_field form.street|append_attr:"size:25" type="text" %}
+           <td colspan="1">
+                <label class="card_label" for="city">Город</label><br/>
+                {% render_field form.city|append_attr:"size:20" type="text" %}
             </td>
-            <td style="width: 3%">
+            <td colspan="1">
+                <label class="card_label" for="district">Район</label><br/>
+                {% render_field form.district|append_attr:"size:20" type="text" %}
+
+            </td>
+            <td colspan="1">
+                <label class="card_label" for="street">Улица</label><br/>
+
+                {% render_field form.street|append_attr:"size:20" type="text" %}
+            </td>
+            <td colspan="1">
                 <label class="card_label" for="bldg">Дом</label><br/>
                 {% render_field form.bldg|append_attr:"size:4" type="text" %}
             </td>
-            <td style="width: 3%">
+            <td colspan="1">
+
                 <label class="card_label" for="block">Блок</label><br/>
                 {% render_field form.block|append_attr:"size:3" type="text" %}
             </td>
-            <td style="width: 3%">
+
+            <td colspan="1">
+
                 <label class="card_label" for="apt_num">Кв</label><br/>
                 {% render_field form.apt_num|append_attr:"size:3" type="text" %}
             </td>
 
-           <td style="width: 3%">
-                <label class="card_label" for="floor">Этаж</label><br/>
-                {% render_field form.floor|append_attr:"size:4" type="text" %}
-            </td>
-            <td style="width: 3%">
-                <label class="card_label" for="entrance">Подъезд</label><br/>
-                {% render_field form.entrance|append_attr:"size:4" type="text" %}
-            </td>
-            <td style="width: 3%">
-                <label class="card_label" for="square">Площадь</label><br/>
-                {% render_field form.square|append_attr:"size:4" type="text" %}
-            </td>
         </tr>
 
 
 
 
         <tr>
-            <td colspan="2">
+            <td colspan="1">
+                <label class="card_label" for="floor">Этаж</label><br/>
+                {% render_field form.floor|append_attr:"size:4" type="text" %}
+            </td>
+            <td colspan="1">
+                <label class="card_label" for="entrance">Подъезд</label><br/>
+                {% render_field form.entrance|append_attr:"size:4" type="text" %}
+            </td>
+            <td colspan="1">
+                <label class="card_label" for="square">Площадь</label><br/>
+                {% render_field form.square|append_attr:"size:4" type="text" %}
+            </td>
+            <td colspan="1">
                 <label class="card_label" for="connection_point">Точка подключения</label><br/>
-                {% render_field form.connection_point|append_attr:"size:25" type="text" %}
-            </td>
 
-            <td style="width: 3%">
+                {% render_field form.connection_point|append_attr:"size:15" type="text" %}
+            </td>
+            <td colspan="1">
+
                 <label class="card_label" for="power">Мощность</label><br/>
-                {% render_field form.power|append_attr:"size:6" type="text" %}
-            </td>
-            <td style="width: 3%">
-                <label class="card_label" for="nominal">Номинал автомата</label><br/>
-                {% render_field form.nominal|append_attr:"size:6" type="text" %}
+                {% render_field form.power|append_attr:"size:5" type="text" %}
             </td>
 
-            <td>
+            <td colspan="1">
+
+                <label class="card_label" for="nominal">Номинал автомата</label><br/>
+                {% render_field form.nominal|append_attr:"size:15" type="text" %}
+            </td>
+            <td colspan="1">
                 <label class="card_label" for="main_point">Головной ПУ</label><br/>
                 {% render_field form.main_point|append_attr:"size:8" type="text" %}
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 <label class="card_label" for="counter_number">Номер счетчика</label><br/>
-                {% render_field form.counter_number|append_attr:"size:12" type="text" %}
-            </td>
-            <td colspan="3">
-                <label class="card_label" for="counter_model">Тип счетчика</label><br/>
-                {% render_field form.counter_model|append_attr:"size:25" type="text" %}
+                {% render_field form.counter_number|append_attr:"size:10" type="text" %}
             </td>
         </tr>
+        <tr>
+            <td >
+                <label class="card_label" for="counter_model">Тип счетчика</label><br/>
+                {% render_field form.counter_model|append_attr:"size:30" type="text" %}
+            </td>
+            <td >
+                <label class="card_label" for="contract">Дата договора</label><br/>
+                {% render_field form.contract|append_attr:"size:30" type="text" %}
+            </td>
 
+            <td >
+                <label class="card_label" for="organization">Энергосберегающая организация</label><br/>
+                {% render_field form.organization|append_attr:"size:30" type="text" %}
+            </td>
 
+            <td colspan="3">
+                <label class="card_label" for="operator">ФИО оператора</label><br/>
+                {% render_field form.operator|append_attr:"size:30" type="text" %}
+            </td>
 
-
-<tr>
-    <td colspan="2">
-        <label class="card_label" for="phone_number">Телефон потребителя</label><br/>
-        {% render_field form.phone_number|append_attr:"size:25" type="text" %}
-    </td>
-    <td colspan="2">
-        <label class="card_label" for="contract">Дата и номер договора</label><br/>
-        {% render_field form.contract|append_attr:"size:25" type="text" %}
-    </td>
-
-    <td colspan="3">
-        <label class="card_label" for="organization">Энергосберегающая организация</label><br/>
-        {% render_field form.organization|append_attr:"size:25" type="text" %}
-    </td>
-
-    <td colspan="3">
-        <label class="card_label" for="operator">ФИО оператора</label><br/>
-        {% render_field form.operator|append_attr:"size:25" type="text" %}
-    </td>
-
-    </tr>
-
+        </tr>
 
     <tr>
+         <td colspan="1">
+            <label class="card_label" for=" phone_number">Номер телефона</label><br/>
+            {% render_field form.phone_number|append_attr:"size:30" type="text" %}
+         </td>
+
         <td colspan="10">
             <label class="card_label" for="comment">Примечание</label><br/>
                 {% render_field form.comment|append_attr:"size:130" type="text" %}

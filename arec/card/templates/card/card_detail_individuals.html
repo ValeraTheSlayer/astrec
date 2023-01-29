@@ -11,7 +11,7 @@
                 <label>Дата и время заявки</label>
             </div>
             <div class="col-10 col-sm-10">
-                {{ card.created_at | date:"d.m.y H:i" }}
+                {{ card.card.created_at | date:"d.m.y H:i" }}
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
                 <label>Контактный номер</label>
             </div>
             <div class="col-10 col-sm-10">
-             {{ card.phone_number }}
+             {{ card.card.phone_number }}
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
                 <label>Адрес</label>
             </div>
             <div class="col-10 col-sm-10">
-               {{ card.street }}, д. {{ card.bldg }} - {{ card.apt_num }}
+               {{ card.card.street }}, д. {{ card.card.bldg }} - {{ card.card.apt_num }}
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                {{ card.floor }}
+                {{ card.card.floor }}
             </div>
         </div>
     </div>
@@ -66,7 +66,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                {{ card.square }}
+                {{ card.card.square }}
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                {{ card.connection_point }}
+                {{ card.card.connection_point }}
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                {{ card.power }}
+                {{ card.card.power }}
             </div>
         </div>
     </div>
@@ -103,7 +103,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.nominal }}
+                 {{card.card.nominal }}
              </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.main_point }}
+                 {{card.card.main_point }}
              </div>
         </div>
     </div>
@@ -129,7 +129,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.counter_number }}
+                 {{card.card.counter_number }}
              </div>
         </div>
     </div>
@@ -142,7 +142,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.counter_model }}
+                 {{card.card.counter_model }}
              </div>
         </div>
     </div>
@@ -155,7 +155,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.contract }}
+                 {{card.card.contract }}
              </div>
         </div>
     </div>
@@ -168,7 +168,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.organization }}
+                 {{card.card.organization }}
              </div>
         </div>
     </div>
@@ -181,7 +181,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.operator }}
+                 {{card.card.operator }}
              </div>
         </div>
     </div>
@@ -194,7 +194,7 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-                 {{card.comment }}
+                 {{card.card.comment }}
              </div>
         </div>
     </div>

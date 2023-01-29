@@ -25,19 +25,26 @@
             <a href="{% url 'index' %}" class="hor-menu-link">Главная</a>
         </div>
 
-
-        <div class="hor-menu">
-        <a href="{% url 'new_card' %}" class="hor-menu-link">Добавить заявку</a>
+        <div class="dropdown hor-menu">
+            <a href="#" class="dropdown-toggle hor-menu-link" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Добавить заявку</a>
+            <ul class="dropdown-menu rounded-0 p-0" aria-labelledby="dropdownMenuLink_new">
+                <li><a href="{% url 'new_card_individual' %}" class="dropdown-item hor-menu-link">Физического лица</a></li>
+                <li><a href="{% url 'new_card_legal_entity' %}" class="dropdown-item hor-menu-link">Юридического лица</a></li>
+            </ul>
         </div>
 
-        <div class="hor-menu">
-          <a href="{% url 'card_list' %}" class="hor-menu-link">Журнал заявок</a>
+        <div class="dropdown hor-menu">
+            <a href="#" class="dropdown-toggle hor-menu-link" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Журнал заявок</a>
+            <ul class="dropdown-menu rounded-0 p-0" aria-labelledby="dropdownMenuLink_new">
+                <li><a href="{% url 'card_list_individuals' %}" class="dropdown-item hor-menu-link">Физических лиц</a></li>
+                <li><a href="{% url 'card_list_legal_entities' %}" class="dropdown-item hor-menu-link">Юридических лиц</a></li>
+            </ul>
         </div>
 
         <div class="hor-menu" style="float: right; margin-right: 10px">
 
             {% if request.user.is_authenticated %}
-                <a href="{% url 'card_list' %}" class="hor-menu-link"><img class="vert-menu" style="width: 25px" src="{% static 'img/profile.png' %}" alt="">&nbsp; {{ request.user.username }}</a>
+                <a href="{% url 'card_list_individuals' %}" class="hor-menu-link"><img class="vert-menu" style="width: 25px" src="{% static 'img/profile.png' %}" alt="">&nbsp; {{ request.user.username }}</a>
             {% else %}
                 <a href="{% url 'users:login' %}" class="hor-menu-link"><img class="vert-menu" style="width: 25px" src="{% static 'img/profile.png' %}" alt="">&nbsp; Вход</a>
             {% endif %}
@@ -57,7 +64,7 @@
 
 <main class="inner d-flex justify-content-center" >
 
-<div id="content">
+<div id="content d-flex justify-content-center">
 {% block content %}
 
 {% endblock content %}
