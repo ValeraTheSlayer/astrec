@@ -1,6 +1,7 @@
 /* Style the header with a grey background and some padding */
 .header {
-  overflow: hidden;
+  overflow: visible;
+  height: 3em;
   background-color: #F2F2F2;
 }
 
@@ -13,7 +14,7 @@
   padding: 8px;
   text-decoration: none;
   font-size: 18px;
-  line-height: 15xpx;
+  line-height: 3em;
   border-radius: 5px;
   margin-left: 20px;
 }
@@ -65,7 +66,8 @@
     text-decoration: none;
     text-align: center;
     padding: 12px;
-    font-size: 18px;
+    font-size: 1em;
+    text-align: left;
 }
 
 .hor-menu-link:hover {
