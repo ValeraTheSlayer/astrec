@@ -31,4 +31,6 @@ urlpatterns = [
     re_path(r'^card/individuals/(?P<cid>\d+)/$', card_detail, name='card_individual'),
     path('card/new/legal-entity/', card_create, name='new_card_legal_entity'),
     re_path(r'^card/legal-entiti/(?P<cid>\d+)/$', card_detail, name='card_legal_entity'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] \
+              + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
+              + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # TODO: do it properly with nginx
