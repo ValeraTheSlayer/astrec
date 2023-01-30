@@ -10,4 +10,4 @@ class User(AbstractUser):
         ('HEAD_SCPE', 'НАЧАЛЬНИК СКПЭ'),
         ('CONTROLLER', 'КОНТРОЛЛЕР'),
     )
-    position = models.CharField(max_length=30, choices=POSITIONS)
+    position = models.CharField(max_length=30, choices=POSITIONS, verbose_name='Должность')
