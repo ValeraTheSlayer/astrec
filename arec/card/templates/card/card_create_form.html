@@ -8,7 +8,7 @@
     {% for hidden in form.hidden_fields %}
       {{ hidden }}
     {% endfor %}
-  <form method="POST" href="{% url 'new_card_individual' %}" enctype="multipart/form-data">
+      <form method="POST" href="{% url 'new_card_individual' %}" enctype="multipart/form-data">
     <div class="form-group">
         {% csrf_token %}
 
@@ -69,6 +69,7 @@
         <label class="card_label" for="company_name">Наименование организации</label><br/>
         {% render_field form_legal_entity.company_name|append_attr:"size:auto" type="text" %}
     </div>
+  </div>
   {% endif %}
 
   <div class="row">
@@ -93,7 +94,13 @@
         {% render_field form.block|append_attr:"size:auto" type="text" style="width: 3em" %}
     </div>
     <div class="col">
-        <label class="card_label" for="apt_num">Офис</label><br/>
+        <label class="card_label" for="apt_num">
+        {% if is_individual %}
+            Кв
+        {% else %}
+            Офис
+        {% endif %}
+        </label><br/>
         {% render_field form.apt_num|append_attr:"size:auto" type="text" style="width: 3em" %}
     </div>
   </div>
@@ -170,10 +177,10 @@
   </div>
   <div class="row">
     <div class="col-md-6">
-        <label class="card_label" for="docsan" class="text-center pt-1 filebox">
+        <label class="card_label" for="file" class="text-center pt-1 filebox">
             Скан документов&nbsp;
         </label><br/>
-        <input class="form-control py-0" type="file" name="docsan" id="docsan" />
+        <input class="form-control py-0" type="file" name="file" id="docsan" />
     </div>
     </div>
 </div>

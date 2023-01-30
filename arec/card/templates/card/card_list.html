@@ -18,7 +18,11 @@
 
 {% for bid in cards %}
   <tr>
-    <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.id }}</a></td>
+    {% if is_individual %}
+      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.id }}</a></td>
+    {% else %}
+      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_legal_entity' cid=bid.id %}">{{ bid.id }}</a></td>
+    {% endif %}
     <td>{{ bid.card.created_at | date:"d.m.y" }}</td>
     <td>{{ bid.card.created_at | date:"H:i" }}</td>
     <td>{{ bid.card.object_category }}</td>

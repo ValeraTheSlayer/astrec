@@ -19,10 +19,17 @@
     <div class="card-body p-2">
         <div class="row">
             <div class="col-2 col-sm-2 card-label-col">
+                {% if is_individual %}
                 <label>ФИО абонента</label>
             </div>
             <div class="col-10 col-sm-10">
                 {{ card.last_name }} {{ card.first_name }} {{ card.patronymic_name }}
+                {% else %}
+                <label>Наименование организации</label>
+            </div>
+            <div class="col-10 col-sm-10">
+                {{ card.company_name }}
+                {% endif %}
             </div>
         </div>
     </div>
