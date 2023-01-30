@@ -1,5 +1,5 @@
 from django.core.files.storage import FileSystemStorage
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db import models
 
 fs = FileSystemStorage(location='/code/files')
@@ -37,8 +37,6 @@ class Card(models.Model):
     object_category = models.CharField(max_length=30, null=True,
                                        blank=True, choices=OBJECT_CATEGORY)
 
-    iin = models.CharField(validators=[RegexValidator(
-        r'^\d{12}$', 'Введите корректный иин')], max_length=12)
     phone_number = models.PositiveIntegerField()
 
     city = models.CharField(max_length=125)
@@ -68,7 +66,7 @@ class Card(models.Model):
         max_length=250)  # ФИО оператора TODO: as relation with User model
     comment = models.TextField()
 
-    created_at = models.DateTimeField(auto_now_add=False)
+    created_at = models.DateTimeField(auto_now_add=False, auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     individual_entity = models.OneToOneField('CardIndividual',
@@ -80,6 +78,12 @@ class Card(models.Model):
                                         on_delete=models.SET_NULL, null=True,
                                         blank=True,
                                         )
+    file = models.FileField(
+        storage=fs,
+        upload_to='%Y/%m/%d/',
+        blank=True,
+        validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
+    )
 
     # TODO: relations to the Approval model
 
@@ -87,22 +91,26 @@ class Card(models.Model):
         ordering = ['-created_at']
 
 
-class DocScan(models.Model):
-    """
-    Прикрепляемые к заявке документы
-    """
-    doctype = models.CharField(max_length=15, choices=DOC_TYPES)
-    doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
-    upload_at = models.DateTimeField(auto_now_add=True)
-
-    card = models.ForeignKey(Card, on_delete=models.CASCADE)
+# class DocScan(models.Model):
+#     """
+#     Прикрепляемые к заявке документы
+#     """
+#     doctype = models.CharField(max_length=15, choices=DOC_TYPES)
+#     doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
+#     upload_at = models.DateTimeField(auto_now_add=True)
+#
+#     card = models.ForeignKey(Card, on_delete=models.CASCADE)
 
 
 class CardIndividual(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     patronymic_name = models.CharField(max_length=50)
+    iin = models.CharField(validators=[RegexValidator(
+        r'^\d{12}$', 'Введите корректный ИИН')], max_length=12)
 
 
 class CardLegalEntity(models.Model):
     company_name = models.CharField(max_length=100)
+    bin = models.CharField(validators=[RegexValidator(
+        r'^\d{12}$', 'Введите корректный БИН')], max_length=12)
