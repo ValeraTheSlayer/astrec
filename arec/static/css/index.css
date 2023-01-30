@@ -7,6 +7,7 @@ html,body {
 }
 
 .inner {
+  clear: both;
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: 10% 88%;
