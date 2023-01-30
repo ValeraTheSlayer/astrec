@@ -40,10 +40,11 @@
     </div>
   </div>
 
+  {% if is_individual %}
   <div class="row">
     <div class="col-md-3">
         <label class="card_label" for="iin">ИИН</label><br/>
-        {% render_field form.iin|append_attr:"size:auto" type="text" %}
+        {% render_field form_individual.iin|append_attr:"size:auto" type="text" %}
     </div>
     <div class="col-md-3">
         <label class="card_label" for="last_name">Фамилия</label><br/>
@@ -58,6 +59,17 @@
         {% render_field form_individual.patronymic_name|append_attr:"size:auto" type="text" %}
     </div>
   </div>
+  {% else %}
+  <div class="row">
+    <div class="col-md-3">
+        <label class="card_label" for="bin">БИН</label><br/>
+        {% render_field form_legal_entity.bin|append_attr:"size:auto" type="text" %}
+    </div>
+    <div class="col-md-9">
+        <label class="card_label" for="company_name">Наименование организации</label><br/>
+        {% render_field form_legal_entity.company_name|append_attr:"size:auto" type="text" %}
+    </div>
+  {% endif %}
 
   <div class="row">
     <div class="col-md-3">
@@ -81,7 +93,7 @@
         {% render_field form.block|append_attr:"size:auto" type="text" style="width: 3em" %}
     </div>
     <div class="col">
-        <label class="card_label" for="apt_num">Кв</label><br/>
+        <label class="card_label" for="apt_num">Офис</label><br/>
         {% render_field form.apt_num|append_attr:"size:auto" type="text" style="width: 3em" %}
     </div>
   </div>

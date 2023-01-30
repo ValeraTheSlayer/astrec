@@ -207,11 +207,12 @@
                 </label>
             </div>
             <div class="col-10 col-sm-10">
-
-                {% for scan in scans %}
-                    <a href="/{{ scan.doc_file }}" target="_blank">{{ scan.get_doctype_display }}</a><br>
-                {% endfor %}
-             </div>
+            {% if card.card.file %}
+                <a href="{{ card.card.file.url }}" target="_blank">{{ card.card.file.name }}</a><br>
+            {% else %}
+                Нет загруженных файлов
+            {% endif %}
+            </div>
         </div>
     </div>
     <hr/>
