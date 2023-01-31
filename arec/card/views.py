@@ -43,7 +43,7 @@ def card_detail(request, cid):
         card = CardIndividual.objects.select_related('card').get(pk=cid)
     else:
         card = CardLegalEntity.objects.select_related('card').get(pk=cid)
-    context = {'title': 'Детали карточки', 'card': card}
+    context = {'title': 'Детали карточки', 'card': card, 'is_individual': is_individual}
     return render(request, 'card/card_detail.html', context=context)
 
 
