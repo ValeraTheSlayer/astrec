@@ -11,6 +11,7 @@ from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
 from .utils import my_view
 
 logger = logging.getLogger(__name__)
+entity_map = {'individual': CardIndividual, 'legal_entity': CardLegalEntity}
 
 
 # rendering main page
@@ -24,15 +25,18 @@ def main_page(request):
 
 
 @my_view
-def card_list(request):
-    link = request.get_full_path()
-    is_individual = 'individual' in link
-    if is_individual:
-        cards = CardIndividual.objects.select_related('card').all()
-    else:
-        cards = CardLegalEntity.objects.select_related('card').all()
+def card_list(request, entity='individual'):
+    entity_model = entity_map.get(entity, CardIndividual)
+    cards = entity_model.objects.select_related('card').filter(card__is_archived=False)
     return render(request, 'card/card_list.html',
-                  {'cards': cards, 'is_individual': is_individual})
+                  {'cards': cards, 'is_individual': entity == 'individual'})
+
+
+@my_view
+def card_archive(request):
+    cards = Card.objects.filter(is_archived=True)
+    return render(request, 'card/card_list.html',
+                  {'cards': cards, 'is_individual': True})
 
 
 @my_view
@@ -85,7 +89,7 @@ def card_create(request):
                 f'/cards/{"individuals" if is_individual else "legal-entities"}')
         else:
             messages.add_message(request, messages.ERROR,
-                                 'При добавлении карточки обнаружены ошибки! Проверьте заполнение.')
+                                 'При добавлении карточки обнаружены ошибки! Проверьте заполнение.' + str(form.errors))
     else:
         form = CardForm()
         link = request.get_full_path()
@@ -94,7 +98,7 @@ def card_create(request):
             request.POST or None) if is_individual else CardLegalEntityForm(
             request.POST or None)
 
-        return render(request, 'card/card_create_form.html', {'form': form,
-                                                              f'form_{"individual" if is_individual else "legal_entity"}': form_secondary,
-                                                              'is_individual': is_individual})
+    return render(request, 'card/card_create_form.html', {'form': form,
+                                                          f'form_{"individual" if is_individual else "legal_entity"}': form_secondary,
+                                                          'is_individual': is_individual})
 
