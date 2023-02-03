@@ -66,7 +66,10 @@ class Card(models.Model):
         max_length=250)  # ФИО оператора TODO: as relation with User model
     comment = models.TextField()
 
-    created_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+    # дата и время, когда заявка поступила в организацию (заполняется вручную в форме карточки)
+    received_at = models.DateTimeField(blank=False, null=False)
+    # дата и время, когда заявка создана в системе (добавляется автоматически)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     individual_entity = models.OneToOneField('CardIndividual',

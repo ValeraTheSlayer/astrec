@@ -61,7 +61,7 @@ def card_create(request):
             card_secondary_obj = form_secondary.save()
             card_obj = form.save(commit=False)
             if is_individual:
-                card_obj.created_at = datetime.strptime(
+                card_obj.received_at = datetime.strptime(
                     request.POST.get('created_date') + ', ' + request.POST.get(
                         'created_time'), '%Y-%m-%d, %H:%M')
                 card_obj.individual_entity = card_secondary_obj
