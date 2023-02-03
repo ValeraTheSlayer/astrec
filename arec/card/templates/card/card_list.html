@@ -18,16 +18,16 @@
 
 {% for bid in cards %}
   <tr>
-    {% if is_individual %}
-      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_individual' cid=bid.id %}">{{ bid.id }}</a></td>
-    {% else %}
-      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_legal_entity' cid=bid.id %}">{{ bid.id }}</a></td>
+    {% if bid.individual_entity %}
+      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' entity='individual' cid=bid.individual_entity.id %}">{{ bid.individual_entity.id }}</a></td>
+    {% elif bid.legal_entity %}
+      <td><span style="color:black; font-weight: bold"><a href="{% url 'card_detail' entity='legal' cid=bid.legal_entity.id %}">{{ bid.legal_entity.id }}</a></td>
     {% endif %}
-    <td>{{ bid.card.created_at | date:"d.m.y" }}</td>
-    <td>{{ bid.card.created_at | date:"H:i" }}</td>
-    <td>{{ bid.card.object_category }}</td>
-    <td>{{ bid.card.street }}, д. {{ bid.card.bldg }} - {{ bid.card.apt_num }}</td>
-    <td>{{ bid.card.operator }}</td>
+    <td>{{ bid.created_at | date:"d.m.y" }}</td>
+    <td>{{ bid.created_at | date:"H:i" }}</td>
+    <td>{{ bid.object_category }}</td>
+    <td>{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</td>
+    <td>{{ bid.operator }}</td>
     <td>На рассмотрении</td>
   </tr>
 {% endfor %}

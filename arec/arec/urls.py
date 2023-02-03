@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from card.views import main_page, card_create, card_list, card_detail, card_archive
+from card.views import main_page, card_create, card_list, card_detail, card_archive, card_statistics
 from users.apps import UsersConfig
 
 
@@ -27,8 +27,8 @@ urlpatterns = [
     path('auth/', include('users.urls', namespace=UsersConfig.name)),
     path('cards/archive/', card_archive, name='card_archive'),
     re_path(r'^cards/(?P<entity>individual|legal)/$', card_list, name='card_list'),
+    path('card_statistics/', card_statistics, name='card_statistics'),
     path('card/new/individual/', card_create, name='new_card_individual'),
     path('card/new/legal-entity/', card_create, name='new_card_legal_entity'),
-    re_path(r'^card/individuals/(?P<cid>\d+)/$', card_detail, name='card_individual'),
-    re_path(r'^card/legal-entiti/(?P<cid>\d+)/$', card_detail, name='card_legal_entity'),
+    re_path(r'^card/(?P<entity>individual|legal)/(?P<cid>\d+)/$', card_detail, name='card_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
