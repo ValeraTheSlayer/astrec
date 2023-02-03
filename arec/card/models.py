@@ -90,21 +90,12 @@ class Card(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
     )
 
+    is_archived = models.BooleanField(null=False, default=False)
+
     # TODO: relations to the Approval model
 
     class Meta:
         ordering = ['-created_at']
-
-
-# class DocScan(models.Model):
-#     """
-#     Прикрепляемые к заявке документы
-#     """
-#     doctype = models.CharField(max_length=15, choices=DOC_TYPES)
-#     doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
-#     upload_at = models.DateTimeField(auto_now_add=True)
-#
-#     card = models.ForeignKey(Card, on_delete=models.CASCADE)
 
 
 class CardIndividual(models.Model):
