@@ -143,3 +143,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = '/code/files/'
 MEDIA_URL = '/docs/'
+
+AREC_DISTRICTS = (
+    ('almaty', 'Алматы'),
+    ('baikonur', 'Байконур'),
+    ('esil', 'Есиль'),
+    ('nura', 'Нура'),
+    ('saryarka', 'Сарыарка'),
+)

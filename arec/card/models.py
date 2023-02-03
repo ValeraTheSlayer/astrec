@@ -1,6 +1,8 @@
 from django.core.files.storage import FileSystemStorage
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db import models
+from arec.settings import AREC_DISTRICTS
+
 
 fs = FileSystemStorage(location='/code/files')
 DOC_TYPES = (
@@ -40,7 +42,7 @@ class Card(models.Model):
     phone_number = models.PositiveIntegerField()
 
     city = models.CharField(max_length=125)
-    district = models.CharField(max_length=125)
+    district = models.CharField(max_length=12, choices=AREC_DISTRICTS)
     street = models.CharField(max_length=125)
     bldg = models.CharField(
         max_length=8)  # номер дома, CharField, т.к. включены дроби, буквы и т.п.
