@@ -11,7 +11,7 @@ from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
 from .utils import my_view
 
 logger = logging.getLogger(__name__)
-entity_map = {'individual': CardIndividual, 'legal_entity': CardLegalEntity}
+entity_map = {'individual': CardIndividual, 'legal': CardLegalEntity}
 
 
 # rendering main page
@@ -26,8 +26,7 @@ def main_page(request):
 
 @my_view
 def card_list(request, entity='individual'):
-    entity_model = entity_map.get(entity, CardIndividual)
-    cards = entity_model.objects.select_related('card').filter(card__is_archived=False)
+    cards = Card.objects.select_related(f'{entity}_entity').filter(is_archived=False)
     return render(request, 'card/card_list.html',
                   {'cards': cards, 'is_individual': entity == 'individual'})
 

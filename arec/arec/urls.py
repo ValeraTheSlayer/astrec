@@ -26,7 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('users.urls', namespace=UsersConfig.name)),
     path('cards/archive/', card_archive, name='card_archive'),
-    path('cards/<str:entity>/', card_list, name='card_list'),
+    re_path(r'^cards/(?P<entity>individual|legal)/$', card_list, name='card_list'),
     path('card/new/individual/', card_create, name='new_card_individual'),
     path('card/new/legal-entity/', card_create, name='new_card_legal_entity'),
     re_path(r'^card/individuals/(?P<cid>\d+)/$', card_detail, name='card_individual'),
