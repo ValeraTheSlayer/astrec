@@ -40,7 +40,7 @@ def card_archive(request):
 
 @my_view
 def card_detail(request, cid, entity='individual'):
-    card = Card.objects.select_related(f'{entity}_entity').filter(is_archived=False, **{f'{entity}_entity__isnull': False}).get(**{f'{entity}_entity_id': cid})
+    card = Card.objects.get(pk=cid)
     context = {'title': 'Детали карточки', 'card': card, 'is_individual': entity == 'individual'}
     return render(request, 'card/card_detail.html', context=context)
 

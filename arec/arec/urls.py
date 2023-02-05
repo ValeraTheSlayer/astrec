@@ -30,5 +30,5 @@ urlpatterns = [
     path('card_statistics/', card_statistics, name='card_statistics'),
     path('card/new/individual/', card_create, name='new_card_individual'),
     path('card/new/legal-entity/', card_create, name='new_card_legal_entity'),
-    re_path(r'^card/(?P<entity>individual|legal)/(?P<cid>\d+)/$', card_detail, name='card_detail'),
+    path('card/<int:cid>/', card_detail, name='card_detail'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
