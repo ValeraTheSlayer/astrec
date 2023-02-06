@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import View
 
+from approval.models import Approval
+
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
 from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
     CardLegalEntityForm
@@ -35,6 +37,21 @@ def card_list(request, entity='individual'):
 def card_archive(request):
     cards = Card.objects.filter(is_archived=True)
     return render(request, 'card/card_list.html',
+                  {'cards': cards, 'is_individual': True})
+
+@my_view
+def card_approval_registry(request, entity='individual'):
+    # TODO: only individuals for now, enlarge to legal ones after the next iteration of demo
+    if request.method == "POST":
+        # TODO: validate and create a bulk of approval objects and save them
+        ...
+    else:
+        ...
+    # TODO: add logic to filter the cards according to User information (position and district)
+    cards = Card.objects.select_related(f'{entity}_entity')\
+                        .filter(is_archived=False, **{f'{entity}_entity__isnull': False})
+
+    return render(request, 'card/card_registry.html',
                   {'cards': cards, 'is_individual': True})
 
 
