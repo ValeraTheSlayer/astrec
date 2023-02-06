@@ -64,13 +64,11 @@
 
 {% endblock mainmenu %}
 
-
-{# TODO: refactoring: move to a separate including template #}
 {% include "html/message.html" %}
 
 <main class="inner d-flex justify-content-center" >
 
-<div id="content d-flex justify-content-center">
+<div id="content">
 {% block content %}
 
 {% endblock content %}

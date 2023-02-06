@@ -14,12 +14,9 @@ html,body {
   justify-content: start;
 }
 
-
 #content {
-    width: 92%;
+    width: 85%;
     margin: 0 auto;
-    float: left;
-    /* position: relative; */
 }
 
 div.card {
