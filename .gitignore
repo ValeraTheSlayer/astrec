@@ -3,6 +3,7 @@ venv
 postgres_backups
 files
 __pycache__
+arec/environments
 *.pyc
 *.log
 *.sqlite3
