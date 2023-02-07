@@ -2,6 +2,7 @@ from django.core.files.storage import FileSystemStorage
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db import models
 from arec.settings import AREC_DISTRICTS
+from approval.models import Approval
 
 
 fs = FileSystemStorage(location='/code/files')
@@ -92,7 +93,7 @@ class Card(models.Model):
 
     is_archived = models.BooleanField(null=False, default=False)
 
-    # TODO: relations to the Approval model
+    last_approval = models.OneToOneField('approval.Approval', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ['-created_at']

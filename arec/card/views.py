@@ -44,7 +44,17 @@ def card_approval_registry(request, entity='individual'):
     # TODO: only individuals for now, enlarge to legal ones after the next iteration of demo
     if request.method == "POST":
         # TODO: validate and create a bulk of approval objects and save them
-        ...
+        bids = [int(i) for i in request.POST.getlist('bids[]')]
+        cards = Card.objects.select_related('last_approval').filter(id__in=bids)
+        approved_list = [
+            Approval(
+                     approving_person=request.user,
+                     card_ref=card,
+                     parent=card.last_approval
+                     )
+            for card in cards]
+        Approval.objects.bulk_create(approved_list)
+        # problem here is how to effectively update last_approval for the cards according to new approval objects
     else:
         ...
     # TODO: add logic to filter the cards according to User information (position and district)
