@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-  web_project_monitoring:
+  web_project_arec:
     build: .
     image: app
     # command: python manage.py runserver 0.0.0.0:8888
@@ -12,5 +12,12 @@ services:
     ports:
       - "8888:8888"
 
+  postgres:
+    image: postgres:latest
+    env_file: ./arec/environments/dev.env
+    volumes:
+      - ./postgres_backups:/var/postgres_backups
+    ports:
+      - "5432:5432"
 
 

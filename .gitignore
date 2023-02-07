@@ -1,5 +1,6 @@
 venv
 .idea
+postgres_backups
 files
 __pycache__
 *.pyc
