@@ -43,7 +43,7 @@ def card_archive(request):
 def card_approval_registry(request, entity='individual'):
     # TODO: only individuals for now, enlarge to legal ones after the next iteration of demo
     if request.method == "POST":
-        # TODO: validate and create a bulk of approval objects and save them
+        # TODO: validate and create a bulk of bids
         bids = [int(i) for i in request.POST.getlist('bids[]')]
         cards = Card.objects.select_related('last_approval').filter(id__in=bids)
         approved_list = [
@@ -54,15 +54,15 @@ def card_approval_registry(request, entity='individual'):
                      )
             for card in cards]
         Approval.objects.bulk_create(approved_list)
+        messages.add_message(request, messages.SUCCESS, 'Заявки согласованы!')
         # problem here is how to effectively update last_approval for the cards according to new approval objects
-    else:
-        ...
+
     # TODO: add logic to filter the cards according to User information (position and district)
-    cards = Card.objects.select_related(f'{entity}_entity')\
-                        .filter(is_archived=False, **{f'{entity}_entity__isnull': False})
+    cards_to_approve = Approval.objects.select_related('card_ref').filter(approving_person=request.user) \
+                                       .order_by('-id')  # .distinct('card_ref__id')
 
     return render(request, 'card/card_registry.html',
-                  {'cards': cards, 'is_individual': True})
+                  {'cards': cards_to_approve, 'is_individual': True})
 
 
 @my_view
