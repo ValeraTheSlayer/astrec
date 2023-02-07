@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import View
-
+from django.db import transaction
 from approval.models import Approval
 
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
@@ -81,33 +81,32 @@ def card_create(request):
         form_secondary = CardIndividualForm(
             request.POST or None) if is_individual else CardLegalEntityForm(
             request.POST or None)
-
+        # TODO: elaborate how to decrease save() calls for the card_obj
         if form.is_valid() and form_secondary.is_valid():
-            card_secondary_obj = form_secondary.save()
-            card_obj = form.save(commit=False)
-            card_obj.received_at = datetime.strptime(
-                request.POST.get('created_date') + ', ' + request.POST.get(
-                    'created_time'), '%Y-%m-%d, %H:%M')
-            if is_individual:
-                card_obj.individual_entity = card_secondary_obj
-            else:
-                card_obj.legal_entity = card_secondary_obj
-            card_obj.save()
-            attachment = request.FILES.get('file')
-            if attachment and attachment.name.endswith('.pdf'):
-                card_obj.file = attachment
+            with transaction.atomic():
+                card_secondary_obj = form_secondary.save()
+                card_obj = form.save(commit=False)
+                card_obj.received_at = datetime.strptime(
+                    request.POST.get('created_date') + ', ' + request.POST.get(
+                        'created_time'), '%Y-%m-%d, %H:%M')
+                if is_individual:
+                    card_obj.individual_entity = card_secondary_obj
+                else:
+                    card_obj.legal_entity = card_secondary_obj
                 card_obj.save()
-            elif attachment:
-                messages.add_message(request, messages.ERROR,
-                                     'Загружать можно только файлы формата .PDF')
-                return render(request, 'card/card_create_form.html',
-                              {'form': form,
-                               f'form_{"individual" if is_individual else "legal_entity"}': form_secondary,
-                               'is_individual': is_individual})
-            messages.add_message(request, messages.SUCCESS,
-                                 'Заявка успешно создана!')
-            return HttpResponseRedirect(
-                f'/cards/{"individual" if is_individual else "legal"}')
+                approval_obj = Approval(approving_person=request.user, card_ref=card_obj)
+                approval_obj.save()
+                card_obj.last_approval = approval_obj
+                card_obj.save()
+                attachment = request.FILES.get('file')
+                if attachment and attachment.name.endswith('.pdf'):
+                    card_obj.file = attachment
+                    card_obj.save()
+                elif attachment:
+                    messages.add_message(request, messages.ERROR,
+                                         'Загружать можно только файлы формата .PDF')
+                messages.add_message(request, messages.SUCCESS,
+                                     'Заявка успешно создана!')
         else:
             messages.add_message(request, messages.ERROR,
                                  'При добавлении карточки обнаружены ошибки! Проверьте заполнение.' + str(form.errors))
