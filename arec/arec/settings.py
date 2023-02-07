@@ -160,7 +160,7 @@ LOGIN_REDIRECT_URL = 'index'
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
@@ -188,4 +188,12 @@ AREC_DISTRICTS = (
     ('esil', 'Есиль'),
     ('nura', 'Нура'),
     ('saryarka', 'Сарыарка'),
+)
+
+AREC_POSITIONS = (
+    ('OPERATOR', 'Оператор'),
+    ('LEAD_ENGINEER', 'Ведущий инженер'),
+    ('HEAD_SERVICE', 'Начальник службы'),
+    ('HEAD_SCPE', 'Начальник СКПЭ'),
+    ('CONTROLLER', 'Контроллер'),
 )

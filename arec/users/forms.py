@@ -3,9 +3,14 @@ from .models import User
 
 
 class CreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['position'].label = 'Должность'
+        self.fields['district'].label = 'Уполномочен(а) по району'
+
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'position',)
+        fields = ('first_name', 'last_name', 'username', 'email', 'position', 'district',)
 
 
 class UserAuthenticationForm(AuthenticationForm):
