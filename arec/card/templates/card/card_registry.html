@@ -35,13 +35,13 @@
               </label>
         </div>
       </td>
-      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.card_ref.id %}">{{ bid.card_ref.id }}</a></span></td>
-      <td>{{ bid.card_ref.created_at | date:"d.m.y" }}</td>
-      <td>{{ bid.card_ref.created_at | date:"H:i" }}</td>
-      <td>{{ bid.card_ref.get_object_category_display }}</td>
-      <td>{{ bid.card_ref.get_district_display }}</td>
-      <td>{{ bid.card_ref.street }}, д. {{ bid.card_ref.bldg }} - {{ bid.card_ref.apt_num }}</td>
-      <td>{{ bid.card_ref.operator }}</td>
+      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
+      <td>{{ bid.created_at | date:"d.m.y" }}</td>
+      <td>{{ bid.created_at | date:"H:i" }}</td>
+      <td>{{ bid.get_object_category_display }}</td>
+      <td>{{ bid.get_district_display }}</td>
+      <td>{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</td>
+      <td>{{ bid.operator }}</td>
       <td>На рассмотрении</td>
     </tr>
   {% endfor %}

@@ -48,7 +48,7 @@ def card_approval_registry(request, entity='individual'):
     if request.method == "POST":
         # TODO: validate and create a bulk of bids
         bids = [int(i) for i in request.POST.getlist('bids[]')]
-        cards = Card.objects.select_related('last_approval').filter(id__in=bids)
+        cards = Card.objects.filter(id__in=bids)
         approved_list = [
             Approval(
                 approving_person=request.user,
@@ -57,24 +57,22 @@ def card_approval_registry(request, entity='individual'):
             )
             for card in cards]
         app_ids = Approval.objects.bulk_create(approved_list)
+        messages.add_message(request, messages.SUCCESS,
+                             f'Согласованы {len(app_ids)} из {len(cards)} заявок')
 
-        messages.add_message(request, messages.SUCCESS, 'Заявки согласованы!')
-        # problem here is how to effectively update last_approval for the cards according to new approval objects
         for card, approval in zip(cards, app_ids):
-            card.last_approval.id = approval
+            card.last_approval = approval
         Card.objects.bulk_update(cards, ['last_approval'])
 
-    # TODO: add logic to filter the cards according to User information (position and district)
     position_order = [position[0] for position in AREC_POSITIONS]
     approving_position = position_order[position_order.index(request.user.position) - 1]
 
-    filter_kwargs = {'approving_person__position': approving_position}
+    filter_kwargs = {'last_approval__approving_person__position': approving_position}
     if approving_position == 'OPERATOR':
-        filter_kwargs['card_ref__district'] = request.user.district
+        filter_kwargs['district'] = request.user.district
 
-    cards_to_approve = Approval.objects.select_related('card_ref') \
-        .filter(**filter_kwargs) \
-        .order_by('card_ref__id').distinct('card_ref__id')
+    cards_to_approve = Card.objects.select_related('last_approval', 'last_approval__approving_person')  \
+        .filter(**filter_kwargs).order_by('last_approval__approved_at')
 
     return render(request, 'card/card_registry.html',
                   {'cards': cards_to_approve, 'is_individual': True})
