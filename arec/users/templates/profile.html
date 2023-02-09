@@ -28,7 +28,15 @@
                 <label>Должность</label>
             </div>
             <div class="col">
-                <b>{{ user.get_position_display}}</b>
+                <b>{{ user.get_position_display }}</b>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <label>Район</label>
+            </div>
+            <div class="col">
+                {{ user.get_district_display }}
             </div>
         </div>
     </div>

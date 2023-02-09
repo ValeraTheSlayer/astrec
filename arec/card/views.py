@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.views.generic import View
 from django.db import transaction
 from approval.models import Approval
+from arec.settings import AREC_POSITIONS
 
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
 from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
@@ -28,7 +29,8 @@ def main_page(request):
 
 @my_view
 def card_list(request, entity='individual'):
-    cards = Card.objects.select_related(f'{entity}_entity').filter(is_archived=False, **{f'{entity}_entity__isnull': False})
+    cards = Card.objects.select_related(f'{entity}_entity').filter(is_archived=False,
+                                                                   **{f'{entity}_entity__isnull': False})
     return render(request, 'card/card_list.html',
                   {'cards': cards})
 
@@ -39,6 +41,7 @@ def card_archive(request):
     return render(request, 'card/card_list.html',
                   {'cards': cards, 'is_individual': True})
 
+
 @my_view
 def card_approval_registry(request, entity='individual'):
     # TODO: only individuals for now, enlarge to legal ones after the next iteration of demo
@@ -48,18 +51,30 @@ def card_approval_registry(request, entity='individual'):
         cards = Card.objects.select_related('last_approval').filter(id__in=bids)
         approved_list = [
             Approval(
-                     approving_person=request.user,
-                     card_ref=card,
-                     parent=card.last_approval
-                     )
+                approving_person=request.user,
+                card_ref=card,
+                parent=card.last_approval
+            )
             for card in cards]
-        Approval.objects.bulk_create(approved_list)
+        app_ids = Approval.objects.bulk_create(approved_list)
+
         messages.add_message(request, messages.SUCCESS, 'Заявки согласованы!')
         # problem here is how to effectively update last_approval for the cards according to new approval objects
+        for card, approval in zip(cards, app_ids):
+            card.last_approval.id = approval
+        Card.objects.bulk_update(cards, ['last_approval'])
 
     # TODO: add logic to filter the cards according to User information (position and district)
-    cards_to_approve = Approval.objects.select_related('card_ref').filter(approving_person=request.user) \
-                                       .order_by('-id')  # .distinct('card_ref__id')
+    position_order = [position[0] for position in AREC_POSITIONS]
+    approving_position = position_order[position_order.index(request.user.position) - 1]
+
+    filter_kwargs = {'approving_person__position': approving_position}
+    if approving_position == 'OPERATOR':
+        filter_kwargs['card_ref__district'] = request.user.district
+
+    cards_to_approve = Approval.objects.select_related('card_ref') \
+        .filter(**filter_kwargs) \
+        .order_by('card_ref__id').distinct('card_ref__id')
 
     return render(request, 'card/card_registry.html',
                   {'cards': cards_to_approve, 'is_individual': True})
@@ -156,4 +171,3 @@ def card_statistics(request):
         district_stats[district['district']] = district['id__count']
 
     return JsonResponse({"card_stats_by_district": district_stats})
-
