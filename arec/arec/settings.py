@@ -110,6 +110,7 @@ DATABASES = {
         'PASSWORD': env('POSTGRES_PASSWORD'),
         'HOST': env('DB_HOST'),
         'PORT': env('DB_PORT'),
+        'OPTIONS': {'sslmode': 'disable'},  # still we don't SSL for demo and test
     }
 }
 
