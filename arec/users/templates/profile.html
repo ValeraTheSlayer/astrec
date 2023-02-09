@@ -1,0 +1,44 @@
+{% extends "html/base.html" %}
+
+{% block content %}
+<div class="card mt-2 rounded-2 shadow-sm">
+    <div class="card-header">
+          <h3>{{ user.username }}</h3>
+    </div>
+
+    <div class="card-body p-2">
+        <div class="row pt-2">
+            <div class="col-3">
+                <label>Имя и фамилия</label>
+            </div>
+            <div class="col-9">
+                {{ user.first_name }} {{ user.last_name }}
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <label>Email</label>
+            </div>
+            <div class="col">
+                {{ user.email }}
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <label>Должность</label>
+            </div>
+            <div class="col">
+                <b>{{ user.get_position_display }}</b>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col-3">
+                <label>Район</label>
+            </div>
+            <div class="col">
+                {{ user.get_district_display }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

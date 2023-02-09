@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 cd /code
 poetry install --no-root
 #poetry shell

@@ -12,6 +12,14 @@ services:
     ports:
       - "8000:8000"
 
+  postgres:
+    image: postgres:latest
+    env_file: ./arec/environments/dev.env
+    volumes:
+      - ./postgres_backups:/var/postgres_backups
+    ports:
+      - "5432:5432"
+
   nginx:
       restart: always
       build:

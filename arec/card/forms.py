@@ -10,7 +10,7 @@ class SubscriberCardForm(ModelForm):
 
     class Meta:
         model = Card
-        exclude = ('updated_at', 'created_at',)
+        exclude = ('received_at', 'updated_at', 'created_at', 'last_approval')
         widgets = {
             'comment': TextInput(),
         }

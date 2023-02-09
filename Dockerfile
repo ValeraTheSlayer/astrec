@@ -8,6 +8,7 @@ WORKDIR /code
 # CMD ["/bin/bash","-c","/code/run_cmds.sh"]
 # RUN pip install -r requirements.txt
 
+RUN apt-get update && apt-get -y install libpq-dev gcc
 COPY poetry.lock pyproject.toml /code/
 RUN pip3 install poetry
 

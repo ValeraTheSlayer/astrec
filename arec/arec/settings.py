@@ -12,20 +12,25 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from django.contrib.messages import constants as messages
+import environ
 
+PROJECT_RUN_MODE = 'dev'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Initialise environment variables
+environ.Env.read_env(os.path.join(BASE_DIR, f'environments/{PROJECT_RUN_MODE}.env'))
+env = environ.Env()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q@+s61ncs-c#y!7d-9wh$*ome4@mm14v^7t5196a-2&^jzlvkp'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True if PROJECT_RUN_MODE == 'dev' else False
 
 # 46.8.43.198 is our demo VPS on gohost.kz
 ALLOWED_HOSTS = ['innerdjango', '46.8.43.198']
@@ -90,10 +95,21 @@ WSGI_APPLICATION = 'arec.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('POSTGRES_DB'),
+        'USER': env('POSTGRES_USER'),
+        'PASSWORD': env('POSTGRES_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -115,6 +131,28 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        }
+    }
+}
 
 AUTH_USER_MODEL = 'users.User'
 
@@ -146,7 +184,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = '/code/files/'
 MEDIA_URL = '/docs/'
 
+
 CSRF_TRUSTED_ORIGINS = [
     'http://46.8.43.198'
 ]
+
+
+AREC_DISTRICTS = (
+    ('almaty', 'Алматы'),
+    ('baikonur', 'Байконур'),
+    ('esil', 'Есиль'),
+    ('nura', 'Нура'),
+    ('saryarka', 'Сарыарка'),
+)
+
+AREC_POSITIONS = (
+    ('OPERATOR', 'Оператор'),
+    ('LEAD_ENGINEER', 'Ведущий инженер'),
+    ('HEAD_SERVICE', 'Начальник службы'),
+    ('HEAD_SCPE', 'Начальник СКПЭ'),
+    ('CONTROLLER', 'Контроллер'),
+)
 

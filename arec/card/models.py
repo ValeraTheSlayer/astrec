@@ -1,6 +1,9 @@
 from django.core.files.storage import FileSystemStorage
 from django.core.validators import RegexValidator, FileExtensionValidator
 from django.db import models
+from arec.settings import AREC_DISTRICTS
+from approval.models import Approval
+
 
 fs = FileSystemStorage(location='/code/files')
 DOC_TYPES = (
@@ -40,7 +43,7 @@ class Card(models.Model):
     phone_number = models.PositiveIntegerField()
 
     city = models.CharField(max_length=125)
-    district = models.CharField(max_length=125)
+    district = models.CharField(max_length=12, choices=AREC_DISTRICTS)
     street = models.CharField(max_length=125)
     bldg = models.CharField(
         max_length=8)  # номер дома, CharField, т.к. включены дроби, буквы и т.п.
@@ -66,7 +69,10 @@ class Card(models.Model):
         max_length=250)  # ФИО оператора TODO: as relation with User model
     comment = models.TextField()
 
-    created_at = models.DateTimeField(auto_now_add=False, auto_now=True)
+    # дата и время, когда заявка поступила в организацию (заполняется вручную в форме карточки)
+    received_at = models.DateTimeField(blank=False, null=False)
+    # дата и время, когда заявка создана в системе (добавляется автоматически)
+    created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     individual_entity = models.OneToOneField('CardIndividual',
@@ -85,21 +91,12 @@ class Card(models.Model):
         validators=[FileExtensionValidator(allowed_extensions=['pdf'])]
     )
 
-    # TODO: relations to the Approval model
+    is_archived = models.BooleanField(null=False, default=False)
+
+    last_approval = models.OneToOneField('approval.Approval', on_delete=models.SET_NULL, null=True)
 
     class Meta:
         ordering = ['-created_at']
-
-
-# class DocScan(models.Model):
-#     """
-#     Прикрепляемые к заявке документы
-#     """
-#     doctype = models.CharField(max_length=15, choices=DOC_TYPES)
-#     doc_file = models.FileField(storage=fs, upload_to='docs/%Y/%m/%d/')
-#     upload_at = models.DateTimeField(auto_now_add=True)
-#
-#     card = models.ForeignKey(Card, on_delete=models.CASCADE)
 
 
 class CardIndividual(models.Model):
