@@ -4,6 +4,8 @@ services:
   web_project_arec:
     build: .
     image: app
+    depends_on:
+      - postgres    
     # command: python manage.py runserver 0.0.0.0:8888
     volumes:
       - .:/code
@@ -16,16 +18,22 @@ services:
     image: postgres:latest
     env_file: ./arec/environments/dev.env
     volumes:
-      - ./postgres_backups:/var/postgres_backups
+      - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
   nginx:
       restart: always
+      depends_on:
+        - web_project_arec
       build:
           context: ./nginx
       ports:
       - "80:80"
       volumes:
         - ./files:/code/files
+        - /usr/django-admin-static-files/static/admin:/usr/django-admin-static-files/static/admin
         - ./arec/static:/code/arec/static
+
+volumes:
+  pg_data: {}
