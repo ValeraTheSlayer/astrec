@@ -11,6 +11,7 @@ from arec.settings import AREC_POSITIONS
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
 from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
     CardLegalEntityForm
+from .filters import CardFilter
 from .utils import my_view
 
 logger = logging.getLogger(__name__)
@@ -29,10 +30,13 @@ def main_page(request):
 
 @my_view
 def card_list(request, entity='individual'):
-    cards = Card.objects.select_related(f'{entity}_entity').filter(is_archived=False,
-                                                                   **{f'{entity}_entity__isnull': False})
+    cards = Card.objects.select_related(f'{entity}_entity').filter(
+        is_archived=False,
+        **{f'{entity}_entity__isnull': False})
+    ourfilter = CardFilter(request.GET, queryset=cards)
+    cards = ourfilter.qs
     return render(request, 'card/card_list.html',
-                  {'cards': cards})
+                  {'cards': cards, 'OurFilter': ourfilter, 'entity': entity})
 
 
 @my_view
@@ -65,13 +69,16 @@ def card_approval_registry(request, entity='individual'):
         Card.objects.bulk_update(cards, ['last_approval'])
 
     position_order = [position[0] for position in AREC_POSITIONS]
-    approving_position = position_order[position_order.index(request.user.position) - 1]
+    approving_position = position_order[
+        position_order.index(request.user.position) - 1]
 
-    filter_kwargs = {'last_approval__approving_person__position': approving_position}
+    filter_kwargs = {
+        'last_approval__approving_person__position': approving_position}
     if approving_position == 'OPERATOR':
         filter_kwargs['district'] = request.user.district
 
-    cards_to_approve = Card.objects.select_related('last_approval', 'last_approval__approving_person')  \
+    cards_to_approve = Card.objects.select_related('last_approval',
+                                                   'last_approval__approving_person') \
         .filter(**filter_kwargs).order_by('last_approval__approved_at')
 
     return render(request, 'card/card_registry.html',
@@ -81,7 +88,8 @@ def card_approval_registry(request, entity='individual'):
 @my_view
 def card_detail(request, cid, entity='individual'):
     card = Card.objects.get(pk=cid)
-    context = {'title': 'Детали карточки', 'card': card, 'is_individual': entity == 'individual'}
+    context = {'title': 'Детали карточки', 'card': card,
+               'is_individual': entity == 'individual'}
     return render(request, 'card/card_detail.html', context=context)
 
 
@@ -107,7 +115,8 @@ def card_create(request):
                 else:
                     card_obj.legal_entity = card_secondary_obj
                 card_obj.save()
-                approval_obj = Approval(approving_person=request.user, card_ref=card_obj)
+                approval_obj = Approval(approving_person=request.user,
+                                        card_ref=card_obj)
                 approval_obj.save()
                 card_obj.last_approval = approval_obj
                 card_obj.save()
@@ -122,7 +131,8 @@ def card_create(request):
                                      'Заявка успешно создана!')
         else:
             messages.add_message(request, messages.ERROR,
-                                 'При добавлении карточки обнаружены ошибки! Проверьте заполнение.' + str(form.errors))
+                                 'При добавлении карточки обнаружены ошибки! Проверьте заполнение.' + str(
+                                     form.errors))
     else:
         form = CardForm()
         link = request.get_full_path()

@@ -1,6 +1,13 @@
 {% extends 'html/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block content %}
+
+<form method="get">
+  <button class="btn btn-primary" type="submit">Поиск</button>
+
+
+
 
 <table class="table table-striped table-hover table-bordered mt-3">
 <thead>
@@ -8,9 +15,28 @@
     <th>№</th>
     <th>Дата</th>
     <th>Время</th>
-    <th>Категория</th>
-    <th>Адрес </th>
-    <th>Оператор</th>
+    <th>Задание</th>
+    <th>{{ OurFilter.form.object_category }} Категория</th>
+    <th>Телефон</th>
+    {% if entity == 'legal' %}
+      <th>БИН</th>
+      <th>ТОО</th>
+    {% else %}
+      <th>ИИН</th>
+      <th>ФИО</th>
+    {% endif %}
+    <th>Город</th>
+    <th>{{ OurFilter.form.district }} Район</th>
+    <th>Адрес</th>
+    <th>Точка подключения</th>
+    <th>Мощность</th>
+    <th>Номинал автомата</th>
+    <th>Головной ПУ</th>
+    <th>Тип счетчика</th>
+    <th>Номер счетчика</th>
+    <th>Дата договора</th>
+    <th>Энергосберегающая организация</th>
+    <th>{{ OurFilter.form.operator }} Оператор</th>
     <th>Статус</th>
   </tr>
 </thead>
@@ -21,8 +47,27 @@
     <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
     <td>{{ bid.created_at | date:"d.m.y" }}</td>
     <td>{{ bid.created_at | date:"H:i" }}</td>
+    <td>{{ bid.task }}</td>
     <td>{{ bid.object_category }}</td>
+    <td>{{ bid.phone_number }}</td>
+    {% if entity == 'legal' %}
+      <td>{{ bid.legal_entity.bin }}</td>
+      <td>{{ bid.legal_entity.company_name }}</td>
+    {% else %}
+      <td>{{ bid.individual_entity.iin }}</td>
+      <td>{{ bid.individual_entity.last_name }} {{ bid.individual_entity.first_name }} {{ bid.individual_entity.patronymic_name }}</td>
+    {% endif %}
+    <td>{{ bid.city }}</td>
+    <td>{{ bid.district }}</td>
     <td>{{ bid.street }}, д. {{ bid.bldg }} - {{ bid.apt_num }}</td>
+    <td>{{ bid.connection_point }}</td>
+    <td>{{ bid.power }}</td>
+    <td>{{ bid.nominal }}</td>
+    <td>{{ bid.main_point }}</td>
+    <td>{{ bid.counter_model }}</td>
+    <td>{{ bid.counter_number }}</td>
+    <td>{{ bid.contract }}</td>
+    <td>{{ bid.organization }}</td>
     <td>{{ bid.operator }}</td>
     <td>На рассмотрении</td>
   </tr>
@@ -30,4 +75,5 @@
 
 </tbody>
 </table>
+</form>
 {% endblock content %}
