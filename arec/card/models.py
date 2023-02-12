@@ -40,7 +40,7 @@ class Card(models.Model):
     object_category = models.CharField(max_length=30, null=True,
                                        blank=True, choices=OBJECT_CATEGORY)
 
-    phone_number = models.PositiveIntegerField()
+    phone_number = models.BigIntegerField()
 
     city = models.CharField(max_length=125)
     district = models.CharField(max_length=12, choices=AREC_DISTRICTS)
