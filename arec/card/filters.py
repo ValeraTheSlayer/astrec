@@ -13,7 +13,7 @@ class CardFilter(django_filters.FilterSet):
         field_name='operator',
         lookup_expr='icontains',
         label='Оператор',
-        widget=TextInput(attrs= {'style': 'width:100px;'})
+        widget=TextInput(attrs={'style': 'width:100px;'})
     )
     district = ChoiceFilter(
         field_name='district',
@@ -25,36 +25,36 @@ class CardFilter(django_filters.FilterSet):
         field_name='individual_entity__iin',
         lookup_expr='icontains',
         label='ИИН',
-        widget=TextInput(attrs= {'style': 'width:110px;'})
+        widget=TextInput(attrs={'style': 'width:110px;'})
     )
     individual_entity__first_name = CharFilter(
         field_name='individual_entity__first_name',
         lookup_expr='icontains',
         label='Имя',
-        widget=TextInput(attrs= {'style': 'width:100px;'})
+        widget=TextInput(attrs={'style': 'width:100px;'})
     )
     individual_entity__last_name = CharFilter(
         field_name='individual_entity__last_name',
         lookup_expr='icontains',
         label='Фамилия',
-        widget=TextInput(attrs= {'style': 'width:100px;'})
+        widget=TextInput(attrs={'style': 'width:100px;'})
     )
     individual_entity__patronymic_name = CharFilter(
         field_name='individual_entity__patronymic_name',
         lookup_expr='icontains',
         label='Отчество',
-        widget=TextInput(attrs= {'style': 'width:100px;'})
+        widget=TextInput(attrs={'style': 'width:100px;'})
     )
     legal_entity__bin = CharFilter(
         field_name='legal_entity__bin',
         lookup_expr='icontains',
         label='БИН',
-        widget=TextInput(attrs= {'style': 'width:110px;'})
+        widget=TextInput(attrs={'style': 'width:110px;'})
     )
     legal_entity__company_name = CharFilter(
         field_name='legal_entity__company_name',
         lookup_expr='icontains', label='Название компании',
-        widget=TextInput(attrs= {'style': 'width:100px;'}))
+        widget=TextInput(attrs={'style': 'width:100px;'}))
     phone_number = CharFilter(
         field_name='phone_number',
         label='Телефон',

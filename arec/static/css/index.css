@@ -43,3 +43,23 @@ div.card {
   border-radius: 25px;
 }
 
+#table-wrapper {
+  overflow-x: scroll;
+}
+
+th.first-col, td.first-col {
+  position: sticky;
+  left: 0;
+  background-color: #ffffff;
+}
+
+.filter-icon {
+  border: 0;
+  background-color: #ffffff;
+  margin: 2px;
+  padding: 0;
+}
+
+.filter-list {
+  white-space:nowrap
+}

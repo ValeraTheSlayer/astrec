@@ -3,64 +3,56 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<form id="reset-form">
-  <p></p>
-  <button class="btn btn-primary" type="submit" >Сбросить фильтры</button>
-</form>
-
-<form method="get">
-  <p></p>
-  <button class="btn btn-primary" type="submit">Поиск</button>
-
-
+<form method="get" href="{% url 'card_list' entity=entity %}">
+  <div id="table-wrapper">
   <table class="table table-striped table-hover table-bordered mt-3">
   <thead>
     <tr>
-      <th>№</th>
-      <th>Дата</th>
-      <th>Время</th>
+      <th class="align-top first-col">№</th>
+      <th class="align-top align-top">Дата</th>
+      <th class="align-top align-top">Время</th>
       {% if entity == 'legal' %}
-        <th>{{ OurFilter.form.legal_entity__company_name }} ТОО</th>
-        <th>{{ OurFilter.form.legal_entity__bin }} БИН</th>
+        <th class="align-top">ТОО <div class="filter-list">{{ OurFilter.form.legal_entity__company_name }}</div></th>
+        <th class="align-top">БИН <div class="filter-list">{{ OurFilter.form.legal_entity__bin }}</div></th>
       {% else %}
-        <th>{{ OurFilter.form.individual_entity__last_name }} Фамилия</th>
-        <th>{{ OurFilter.form.individual_entity__first_name }} Имя</th>
-        <th>{{ OurFilter.form.individual_entity__patronymic_name }} Отчество</th>
-        <th>{{ OurFilter.form.individual_entity__iin }} ИИН</th>
+        <th class="align-top">Фамилия <div class="filter-list">{{ OurFilter.form.individual_entity__last_name }}</div></th>
+        <th class="align-top">Имя <div class="filter-list">{{ OurFilter.form.individual_entity__first_name }}</div></th>
+        <th class="align-top">Отчество <div class="filter-list">{{ OurFilter.form.individual_entity__patronymic_name }}</div></th>
+        <th class="align-top">ИИН <div class="filter-list">{{ OurFilter.form.individual_entity__iin }}</div></th>
       {% endif %}
-      <th>{{ OurFilter.form.phone_number }} Телефон</th>
-      <th>{{ OurFilter.form.object_category }} Категория</th>
-      <th>{{ OurFilter.form.task }} Задание</th>
-      <th>{{ OurFilter.form.city }}Город</th>
-      <th>{{ OurFilter.form.district }} Район</th>
-      <th>{{ OurFilter.form.street }} Улица</th>
-      <th>{{ OurFilter.form.bldg }} Дом</th>
-      <th>{{ OurFilter.form.block }} Блок</th>
-      <th>{{ OurFilter.form.entrance }} Подъезд</th>
-      <th>{{ OurFilter.form.floor }} Этаж</th>
+      <th class="align-top">Телефон <div class="filter-list">{{ OurFilter.form.phone_number }}</div></th>
+      <th class="align-top">Категория <div class="filter-list">{{ OurFilter.form.object_category }}</div></th>
+      <th class="align-top">Задание <div class="filter-list">{{ OurFilter.form.task }}</div></th>
+      <th class="align-top">Город <div class="filter-list">{{ OurFilter.form.city }}</div></th>
+      <th class="align-top">Район <div class="filter-list">{{ OurFilter.form.district }}</div></th>
+      <th class="align-top">Улица <div class="filter-list">{{ OurFilter.form.street }}</div></th>
+      <th class="align-top">Дом <div class="filter-list">{{ OurFilter.form.bldg }}</div></th>
+      <th class="align-top">Блок <div class="filter-list">{{ OurFilter.form.block }}</div></th>
+      <th class="align-top">Подъезд <div class="filter-list">{{ OurFilter.form.entrance }}</div></th>
+      <th class="align-top">Этаж <div class="filter-list">{{ OurFilter.form.floor }}</div></th>
       {% if entity == 'legal' %}
-        <th>{{ OurFilter.form.apt_num }} Офис</th>
+        <th class="align-top">Офис <div class="filter-list">{{ OurFilter.form.apt_num }}</div></th>
       {% else %}
-        <th>{{ OurFilter.form.apt_num }} Квартира</th>
+        <th class="align-top">Квартира <div class="filter-list">{{ OurFilter.form.apt_num }}</div></th>
       {% endif %}
-      <th>Площадь</th>
-      <th>Точка подключения</th>
-      <th>Мощность</th>
-      <th>Номинал автомата</th>
-      <th>Головной ПУ</th>
-      <th>Тип счетчика</th>
-      <th>Номер счетчика</th>
-      <th>Дата договора</th>
-      <th>Энергосберегающая организация</th>
-      <th>{{ OurFilter.form.operator }} Оператор</th>
-      <th>Статус</th>
+      <th class="align-top">Площадь</th>
+      <th class="align-top">Точка подключения</th>
+      <th class="align-top">Мощность</th>
+      <th class="align-top">Номинал автомата</th>
+      <th class="align-top">Головной ПУ</th>
+      <th class="align-top">Тип счетчика</th>
+      <th class="align-top">Номер счетчика</th>
+      <th class="align-top">Дата договора</th>
+      <th class="align-top">Энергосберегающая организация</th>
+      <th class="align-top">Оператор <div class="filter-list">{{ OurFilter.form.operator }}</div></th>
+      <th class="align-top">Статус</th>
     </tr>
   </thead>
   <tbody>
 
   {% for bid in cards %}
     <tr>
-      <td>&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
+      <td class="first-col opacity-1">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
       <td>{{ bid.created_at | date:"d.m.y" }}</td>
       <td>{{ bid.created_at | date:"H:i" }}</td>
       {% if entity == 'legal' %}
@@ -99,14 +91,34 @@
 
   </tbody>
   </table>
+</div>
 </form>
 
-
 <script>
-  $('#reset-form').submit(function(event) {
+function drawFilterOptions() {
+    const filterItems = Array.from(document.getElementsByClassName("filter-list"));
+    const searchButton = `<button class="filter-icon" title="Применить фильтр" type="submit">
+                            <img src="{% static 'img/apply-icon.svg' %}" width="20px" alt="" />
+                          </button>`;
+    const cancelButton = `<button class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters()">
+                            <img src="{% static 'img/cancel-icon.svg' %}" width="20px" alt="" />
+                          </button>`
+    filterItems.forEach((item) => item.innerHTML += searchButton + cancelButton);
+}
+
+function resetFilters(event) {
     event.preventDefault();
     window.location.href = '{% url "card_list" entity=entity %}';
-  });
-</script>
+}
 
+function listenToResetButtons() {
+    const filterItems = Array.from(document.getElementsByClassName("filter-reset"));
+    filterItems.forEach((item) => item.addEventListener("click", resetFilters));
+}
+
+drawFilterOptions();
+listenToResetButtons();
+
+
+</script>
 {% endblock content %}
