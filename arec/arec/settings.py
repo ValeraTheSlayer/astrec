@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # installed
     'widget_tweaks',
+    'django_filters',
     # custom apps
     'card',
     'approval',
