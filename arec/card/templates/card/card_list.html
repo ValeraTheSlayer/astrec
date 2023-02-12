@@ -65,10 +65,10 @@
         <td>{{ bid.individual_entity.iin }}</td>
       {% endif %}
       <td>{{ bid.phone_number }}</td>
-      <td>{{ bid.object_category }}</td>
-      <td>{{ bid.task }}</td>
+      <td>{{ bid.get_object_category_display }}</td>
+      <td>{{ bid.get_task_display }}</td>
       <td>{{ bid.city }}</td>
-      <td>{{ bid.district }}</td>
+      <td>{{ bid.get_district_display }}</td>
       <td>{{ bid.street }}</td>
       <td>{{ bid.bldg }}</td>
       <td>{{ bid.block }}</td>
