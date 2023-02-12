@@ -1,10 +1,11 @@
 import logging
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import View
 from django.db import transaction
+from django.db.models import Count
 from approval.models import Approval
 from arec.settings import AREC_POSITIONS
 
@@ -88,7 +89,11 @@ def card_approval_registry(request, entity='individual'):
 @my_view
 def card_detail(request, cid, entity='individual'):
     card = Card.objects.get(pk=cid)
-    context = {'title': 'Детали карточки', 'card': card,
+    approvals = Approval.objects.select_related('approving_person') \
+        .filter(card_ref=cid).values_list('approving_person__position', flat=True)
+    position_titles = {position[0]: position[1].upper() for position in AREC_POSITIONS}
+    context = {'title': 'Детали карточки',
+               'card': card, 'approvals': approvals, 'position_buttons': position_titles,
                'is_individual': entity == 'individual'}
     return render(request, 'card/card_detail.html', context=context)
 

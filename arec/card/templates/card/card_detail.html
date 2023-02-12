@@ -225,13 +225,15 @@
     <hr/>
     <div class="d-flex justify-content-center">
         <div class="mb-3">
-            <button class="btn btn-success">ОПЕРАТОР</button>&nbsp;&nbsp;
-            <button class="btn btn-warning">ВЕДУЩИЙ ИНЖЕНЕР</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary">НАЧАЛЬНИК ОТДЕЛА</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary">НАЧАЛЬНИК СЛУЖБЫ</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary">НАЧАЛЬНИК СКПЭ</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary">ОПЕРАТОР</button>&nbsp;&nbsp;
-            <button class="btn btn-secondary">КОНТРОЛЛЕР</button>
+            {% for button, title in position_buttons.items %}
+                <button class="btn
+                    {% if button in approvals %}
+                      btn-success
+                    {% else %}
+                      btn-secondary
+                    {% endif %}
+                ">{{ title }}</button>&nbsp;&nbsp;
+            {% endfor %}
         </div>
     </div>
 
