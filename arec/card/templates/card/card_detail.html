@@ -216,6 +216,12 @@
             <div class="col-10 col-sm-10">
             {% if card.file %}
                 <a href="{{ card.file.url }}" target="_blank">{{ card.file.name }}</a><br>
+                <form method="post" action="{{ merge_url }}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label for="new_file">Прикрепить акт:</label>
+                    <input type="file" id="new_file" name="pdf_file" accept=".pdf">
+                    <button class="btn btn-primary" type="submit">Добавить</button>
+                </form>
             {% else %}
                 Нет загруженных файлов
             {% endif %}
