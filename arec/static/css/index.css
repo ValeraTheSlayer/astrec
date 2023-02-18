@@ -63,3 +63,12 @@ th.first-col, td.first-col {
 .filter-list {
   white-space:nowrap
 }
+
+#particles-js {
+    position: fixed;
+    top: 3em;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -9;
+}
