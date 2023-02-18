@@ -55,10 +55,10 @@
             <ul class="dropdown-menu rounded-0 p-0" aria-labelledby="dropdownMenuLink_new">
                 <li><a href="{% url 'users:profile' %}" class="dropdown-item hor-menu-link">Профиль</a></li>
                 <li><a href="{% url 'users:logout' %}" class="dropdown-item hor-menu-link">Выйти</a></li>
+            </ul>
             {% else %}
             <a href="{% url 'users:login' %}" class="hor-menu-link"><img class="vert-menu" style="width: 25px" src="{% static 'img/profile.png' %}" alt="">&nbsp; Вход</a>
             {% endif %}
-
         </div>
     </div>
   </div>

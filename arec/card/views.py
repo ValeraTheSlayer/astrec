@@ -44,7 +44,7 @@ def card_list(request, entity='individual'):
 def card_archive(request):
     cards = Card.objects.filter(is_archived=True)
     return render(request, 'card/card_list.html',
-                  {'cards': cards, 'is_individual': True})
+                  {'cards': cards, 'is_individual': True,  'entity': 'individual'})
 
 
 @my_view
@@ -83,8 +83,11 @@ def card_approval_registry(request, entity='individual'):
                                                    'last_approval__approving_person') \
         .filter(**filter_kwargs).order_by('last_approval__approved_at')
 
+    ourfilter = CardFilter(request.GET, queryset=cards_to_approve)
+    cards = ourfilter.qs
+
     return render(request, 'card/card_registry.html',
-                  {'cards': cards_to_approve, 'is_individual': True})
+                  {'cards': cards_to_approve, 'OurFilter': ourfilter, 'is_individual': True})
 
 
 @my_view
