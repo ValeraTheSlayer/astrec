@@ -13,6 +13,7 @@ django-widget-tweaks = "^1.4.12"
 django-environ = "^0.9.0"
 psycopg2-binary = "^2.9.5"
 django-filter = "^22.1"
+pikepdf = "^7.1.1"
 
 
 [build-system]
