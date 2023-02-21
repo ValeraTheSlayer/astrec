@@ -57,8 +57,9 @@ th.first-col, td.first-col {
 .filter-icon {
   border: 0;
   background-color: #ffffff;
-  margin: 2px;
+  margin: 0;
   padding: 0;
+  text-decoration: none;
 }
 
 .filter-list {
