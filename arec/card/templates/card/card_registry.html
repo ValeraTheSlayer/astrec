@@ -131,10 +131,10 @@ function eventCheckBox() {
 function drawFilterOptions() {
     const filterItems = Array.from(document.getElementsByClassName("filter-list"));
     const searchButton = `<button class="filter-icon filter-apply" title="Применить фильтр" onclick="applyFilters(event)">
-                            <img src="{% static 'img/apply-icon.svg' %}" width="20px" alt="" />
+                            <img src="{% static 'img/apply-icon-gray.png' %}" width="20px" alt="" />
                           </button>`;
     const cancelButton = `<button class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters(event)">
-                            <img src="{% static 'img/cancel-icon.svg' %}" width="20px" alt="" />
+                            <img src="{% static 'img/cancel-icon-gray.png' %}" width="20px" alt="" />
                           </button>`
     filterItems.forEach((item) => item.innerHTML += searchButton + cancelButton);
 }
