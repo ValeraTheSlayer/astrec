@@ -1,8 +1,11 @@
+from pikepdf import Pdf
 import logging
 from datetime import datetime
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, \
+    HttpResponseBadRequest
+from django.shortcuts import render,  redirect
 from django.contrib import messages
+from django.urls import reverse
 from django.views.generic import View
 from django.db import transaction
 from django.db.models import Count
@@ -31,6 +34,9 @@ def main_page(request):
 
 @my_view
 def card_list(request, entity='individual'):
+    """
+    Функция просмотра карточех определенного типа
+    """
     cards = Card.objects.select_related(f'{entity}_entity').filter(
         is_archived=False,
         **{f'{entity}_entity__isnull': False})
@@ -42,6 +48,9 @@ def card_list(request, entity='individual'):
 
 @my_view
 def card_archive(request):
+    """
+    Функция для создания архива карточек
+    """
     cards = Card.objects.filter(is_archived=True)
     return render(request, 'card/card_list.html',
                   {'cards': cards, 'is_individual': True,  'entity': 'individual'})
@@ -49,6 +58,9 @@ def card_archive(request):
 
 @my_view
 def card_approval_registry(request, entity='individual'):
+    """
+    Функция согласования
+    """
     # TODO: only individuals for now, enlarge to legal ones after the next iteration of demo
     if request.method == "POST":
         # TODO: validate and create a bulk of bids
@@ -92,18 +104,25 @@ def card_approval_registry(request, entity='individual'):
 
 @my_view
 def card_detail(request, cid, entity='individual'):
+    """
+    Функция для создания информации о конкретной карточке
+    """
     card = Card.objects.get(pk=cid)
     approvals = Approval.objects.select_related('approving_person') \
         .filter(card_ref=cid).values_list('approving_person__position', flat=True)
     position_titles = {position[0]: position[1].upper() for position in AREC_POSITIONS}
+    merge_url = reverse('merge_pdfs', args=[card.id])
     context = {'title': 'Детали карточки',
                'card': card, 'approvals': approvals, 'position_buttons': position_titles,
-               'is_individual': entity == 'individual'}
+               'is_individual': entity == 'individual', 'merge_url': merge_url}
     return render(request, 'card/card_detail.html', context=context)
 
 
 @my_view
 def card_create(request):
+    """
+    Функция для создания карточки
+    """
     if request.method == "POST":
         form = CardForm(request.POST or None)
         link = request.get_full_path()
@@ -188,3 +207,22 @@ def card_statistics(request):
         district_stats[district['district']] = district['id__count']
 
     return JsonResponse({"card_stats_by_district": district_stats})
+
+@my_view
+def merge_pdfs(request, cid):
+    """
+    Функция для добавления pdf файлов в уже существующий файл
+    """
+    card = Card.objects.get(pk=cid)
+
+    if request.method == 'POST':
+        if 'pdf_file' not in request.FILES:
+            messages.add_message(request, messages.WARNING, 'Пожалуйста, выберите файл для загрузки')
+        else:
+            pdf_file = request.FILES['pdf_file']
+            with Pdf.open(card.file.path, allow_overwriting_input=True) as input_pdf, Pdf.open(pdf_file) as new_pdf:
+                input_pdf.pages.extend(new_pdf.pages)
+                input_pdf.save(card.file.path)
+            messages.add_message(request, messages.SUCCESS, f'Файл "{pdf_file}" успешно приклеплен')
+
+    return redirect('card_detail', cid=cid)

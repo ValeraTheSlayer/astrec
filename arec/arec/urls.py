@@ -3,7 +3,7 @@ from django.urls import path, re_path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from card.views import main_page, card_create, card_list, card_detail, card_archive, card_statistics, \
-                    card_approval_registry
+                    card_approval_registry, merge_pdfs
 from users.apps import UsersConfig
 
 
@@ -18,6 +18,6 @@ urlpatterns = [
     path('card/new/individual/', card_create, name='new_card_individual'),
     path('card/new/legal-entity/', card_create, name='new_card_legal_entity'),
     path('card/<int:cid>/', card_detail, name='card_detail'),
-] \
-              + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
-              + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # TODO: do it properly with nginx
+    path('card/<int:cid>/merge_pdfs/', merge_pdfs, name='merge_pdfs'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
+  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  # TODO: do it properly with nginx

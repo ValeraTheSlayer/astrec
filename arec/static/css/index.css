@@ -73,3 +73,7 @@ th.first-col, td.first-col {
     height: 100%;
     z-index: -9;
 }
+
+.text-li-item {
+  padding: 12px;
+}
