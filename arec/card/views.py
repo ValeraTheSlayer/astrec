@@ -1,9 +1,14 @@
+import os
+import tempfile
+
+import openpyxl as xl
+from openpyxl.reader.excel import load_workbook
 from pikepdf import Pdf
 import logging
 from datetime import datetime
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, \
     HttpResponseBadRequest
-from django.shortcuts import render,  redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import View
@@ -13,6 +18,7 @@ from approval.models import Approval
 from arec.settings import AREC_POSITIONS
 
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
+from .mappings import xl_map
 from .forms import SubscriberCardForm as CardForm, CardIndividualForm, \
     CardLegalEntityForm
 from .filters import CardFilter
@@ -53,7 +59,8 @@ def card_archive(request):
     """
     cards = Card.objects.filter(is_archived=True)
     return render(request, 'card/card_list.html',
-                  {'cards': cards, 'is_individual': True,  'entity': 'individual'})
+                  {'cards': cards, 'is_individual': True,
+                   'entity': 'individual'})
 
 
 @my_view
@@ -98,7 +105,8 @@ def card_approval_registry(request, entity='individual'):
     filtered_cards_to_approve = ourfilter.qs
 
     return render(request, 'card/card_registry.html',
-                  {'cards': filtered_cards_to_approve, 'OurFilter': ourfilter, 'is_individual': True})
+                  {'cards': filtered_cards_to_approve, 'OurFilter': ourfilter,
+                   'is_individual': True})
 
 
 @my_view
@@ -108,11 +116,14 @@ def card_detail(request, cid, entity='individual'):
     """
     card = Card.objects.get(pk=cid)
     approvals = Approval.objects.select_related('approving_person') \
-        .filter(card_ref=cid).values_list('approving_person__position', flat=True)
-    position_titles = {position[0]: position[1].upper() for position in AREC_POSITIONS}
+        .filter(card_ref=cid).values_list('approving_person__position',
+                                          flat=True)
+    position_titles = {position[0]: position[1].upper() for position in
+                       AREC_POSITIONS}
     merge_url = reverse('merge_pdfs', args=[card.id])
     context = {'title': 'Детали карточки',
-               'card': card, 'approvals': approvals, 'position_buttons': position_titles,
+               'card': card, 'approvals': approvals,
+               'position_buttons': position_titles,
                'is_individual': entity == 'individual', 'merge_url': merge_url}
     return render(request, 'card/card_detail.html', context=context)
 
@@ -207,6 +218,7 @@ def card_statistics(request):
 
     return JsonResponse({"card_stats_by_district": district_stats})
 
+
 @my_view
 def merge_pdfs(request, cid):
     """
@@ -216,12 +228,46 @@ def merge_pdfs(request, cid):
 
     if request.method == 'POST':
         if 'pdf_file' not in request.FILES:
-            messages.add_message(request, messages.WARNING, 'Пожалуйста, выберите файл для загрузки')
+            messages.add_message(request, messages.WARNING,
+                                 'Пожалуйста, выберите файл для загрузки')
         else:
             pdf_file = request.FILES['pdf_file']
-            with Pdf.open(card.file.path, allow_overwriting_input=True) as input_pdf, Pdf.open(pdf_file) as new_pdf:
+            with Pdf.open(card.file.path,
+                          allow_overwriting_input=True) as input_pdf, Pdf.open(
+                    pdf_file) as new_pdf:
                 input_pdf.pages.extend(new_pdf.pages)
                 input_pdf.save(card.file.path)
-            messages.add_message(request, messages.SUCCESS, f'Файл "{pdf_file}" успешно приклеплен')
+            messages.add_message(request, messages.SUCCESS,
+                                 f'Файл "{pdf_file}" успешно приклеплен')
 
     return redirect('card_detail', cid=cid)
+
+
+@my_view
+def download_selected_cards(request):
+    # Получаем список выбранных заявок из POST-запроса
+    bids = [int(i) for i in request.POST.getlist('bids[]')]
+
+    # Получаем соответствующие объекты модели Card
+    cards = Card.objects.select_related('individual_entity').values().filter(
+        id__in=bids)
+    print(cards)
+    # Загружаем excel-шаблон и выбираем первый лист
+    xl_workbook = load_workbook(filename='registry_template.xlsx')
+    xl_sheet = xl_workbook.worksheets[0]
+
+    # Заполняем ячейки в excel-файле с помощью словаря xl_map
+    for row_n, card in enumerate(cards):
+        for col, field_name in xl_map.items():
+            print(col, field_name)
+            xl_sheet[f'{col}{row_n + 2}'].value = card.field_name
+
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as xl_file:
+        xl_workbook.save(xl_file.name)
+
+    with open(xl_file.name, 'rb') as fh:
+        response = HttpResponse(fh.read(),
+                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response[
+            'Content-Disposition'] = f'attachment; filename={os.path.basename(xl_file.name)}'
+        return response

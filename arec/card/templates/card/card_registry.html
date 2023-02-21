@@ -120,6 +120,7 @@
   {% else %}
     <button type="submit" class="btn btn-primary">Согласовать выделенные</button>
   {% endif %}
+    <button type="submit" formaction="{% url 'download_selected' %}" class="btn btn-primary">Скачать выбранные карточки</button>
 
 </form>
 <script>
