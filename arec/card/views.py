@@ -249,9 +249,35 @@ def download_selected_cards(request):
     bids = [int(i) for i in request.POST.getlist('bids[]')]
 
     # Получаем соответствующие объекты модели Card
-    cards = Card.objects.select_related('individual_entity').values().filter(
-        id__in=bids)
-    print(cards)
+    cards = Card.objects.select_related('individual_entity').values(
+        'id',
+        'created_at',
+        'city',
+        'district',
+        'street',
+        'bldg',
+        'block',
+        'entrance',
+        'floor',
+        'apt_num',
+        'individual_entity__last_name',
+        'individual_entity__first_name',
+        'individual_entity__patronymic_name',
+        'individual_entity__iin',
+        'phone_number',
+        'object_category',
+        'square',
+        'connection_point',
+        'power',
+        'nominal',
+        'main_point',
+        'counter_model',
+        'counter_number',
+        'contract',
+        'organization'
+    ).filter(id__in=bids)
+
+
     # Загружаем excel-шаблон и выбираем первый лист
     xl_workbook = load_workbook(filename='registry_template.xlsx')
     xl_sheet = xl_workbook.worksheets[0]
@@ -259,8 +285,8 @@ def download_selected_cards(request):
     # Заполняем ячейки в excel-файле с помощью словаря xl_map
     for row_n, card in enumerate(cards):
         for col, field_name in xl_map.items():
-            print(col, field_name)
-            xl_sheet[f'{col}{row_n + 2}'].value = card.field_name
+            xl_sheet[f'{col}{row_n + 2}'].value = card[field_name]
+
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as xl_file:
         xl_workbook.save(xl_file.name)
