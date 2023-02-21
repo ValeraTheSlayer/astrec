@@ -128,8 +128,8 @@ function eventCheckBox() {
     cardsToApprove.forEach((item) => item.checked = !item.checked);
 }
 
-function addFilter(field, value) {
-    return `<a href="?${field}=${value}" class="filter-icon filter-apply" title="Применить фильтр" onclick="applyFilters(event)">
+function addFilter(field) {
+    return `<a href="#" class="filter-icon filter-apply" title="Применить фильтр" data-field="${field}" onclick="applyFilters(this.getAttribute('data-field'))" >
                             <img src="{% static 'img/apply-icon-gray.png' %}" width="20px" alt="" />
                           </a>`;
 }
@@ -139,17 +139,14 @@ function drawFilterOptions() {
     const cancelButton = `<a href="#" class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters(event)">
                             <img src="{% static 'img/cancel-icon-gray.png' %}" width="20px" alt="" />
                           </a>`;
-    filterItems.forEach((item) => {
-                                    let fieldName = item.querySelector('input, select').name;
-                                    let fieldValue = item.querySelector('input, select').value;
-                                    item.innerHTML += addFilter(fieldName, fieldValue) + cancelButton;
-    });
+    filterItems.forEach((item) => item.innerHTML += addFilter(item.querySelector('input, select').name) + cancelButton);
 }
 
-function applyFilters(event) {
-    event.preventDefault();
-    console.log(event);
-    // window.location.href = '?district=baikonur';
+function applyFilters(field) {
+    const filterValue = document.getElementById('id_' + field).value;
+    if (filterValue) {
+      window.location.href = `?${field}=${filterValue}`;
+    }
 }
 
 function resetFilters(event) {
@@ -157,20 +154,7 @@ function resetFilters(event) {
     window.location.href = '{% url "card_registry" %}';
 }
 
-function listenToResetButtons() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-reset"));
-    filterItems.forEach((item) => item.addEventListener("click", resetFilters));
-}
-
-
-function listenToApplyButtons() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-apply"));
-    filterItems.forEach((item) => item.addEventListener("click", applyFilters));
-}
-
 drawFilterOptions();
-listenToResetButtons();
-listenToApplyButtons();
 
 </script>
 {% endblock content %}

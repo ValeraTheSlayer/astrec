@@ -95,10 +95,10 @@ def card_approval_registry(request, entity='individual'):
         .filter(**filter_kwargs).order_by('last_approval__approved_at')
 
     ourfilter = CardFilter(request.GET, queryset=cards_to_approve)
-    cards = ourfilter.qs
+    filtered_cards_to_approve = ourfilter.qs
 
     return render(request, 'card/card_registry.html',
-                  {'cards': cards_to_approve, 'OurFilter': ourfilter, 'is_individual': True})
+                  {'cards': filtered_cards_to_approve, 'OurFilter': ourfilter, 'is_individual': True})
 
 
 @my_view
