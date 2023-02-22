@@ -1,17 +1,14 @@
 import os
 import tempfile
 
-import openpyxl as xl
 from openpyxl.reader.excel import load_workbook
 from pikepdf import Pdf
 import logging
 from datetime import datetime
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse, \
-    HttpResponseBadRequest
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse
-from django.views.generic import View
 from django.db import transaction
 from django.db.models import Count, F, Func, Value, CharField
 
@@ -92,7 +89,6 @@ def card_approval_registry(request, entity='individual'):
     position_order = [position[0] for position in AREC_POSITIONS]
     approving_position = position_order[
         position_order.index(request.user.position) - 1]
-
 
     filter_kwargs = {
         'last_approval__approving_person__position': approving_position}
@@ -238,9 +234,12 @@ def merge_pdfs(request, cid):
                           allow_overwriting_input=True) as input_pdf, Pdf.open(
                 pdf_file) as new_pdf:
                 input_pdf.pages.extend(new_pdf.pages)
+                page_number = len(input_pdf.pages) - len(new_pdf.pages) + 1
+                card.page_number_on_which_the_act_begins = page_number
+                card.save()
                 input_pdf.save(card.file.path)
             messages.add_message(request, messages.SUCCESS,
-                                 f'Файл "{pdf_file}" успешно приклеплен')
+                                 f'Файл "{pdf_file}" успешно приклеплен на странице {page_number}')
 
     return redirect('card_detail', cid=cid)
 
@@ -264,8 +263,8 @@ def download_selected_cards(request):
     )
 
     # Получаем соответствующие объекты модели Card
-    cards = Card.objects.select_related('individual_entity')\
-        .annotate(date_as_str=formatted_date, time_as_str=formatted_time)\
+    cards = Card.objects.select_related('individual_entity') \
+        .annotate(date_as_str=formatted_date, time_as_str=formatted_time) \
         .values(
         'date_as_str',
         'time_as_str',
@@ -295,7 +294,8 @@ def download_selected_cards(request):
     ).filter(id__in=bids)
 
     # Загружаем excel-шаблон и выбираем первый лист
-    xl_workbook = load_workbook(filename=os.path.join(BASE_DIR, 'registry_template.xlsx'))
+    xl_workbook = load_workbook(
+        filename=os.path.join(BASE_DIR, 'registry_template.xlsx'))
     xl_sheet = xl_workbook.worksheets[0]
 
     # Заполняем ячейки в excel-файле с помощью словаря xl_map
