@@ -13,7 +13,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.generic import View
 from django.db import transaction
-from django.db.models import Count
+from django.db.models import Count, F, Func, Value, CharField
+
 from approval.models import Approval
 from arec.settings import AREC_POSITIONS
 
@@ -234,7 +235,7 @@ def merge_pdfs(request, cid):
             pdf_file = request.FILES['pdf_file']
             with Pdf.open(card.file.path,
                           allow_overwriting_input=True) as input_pdf, Pdf.open(
-                    pdf_file) as new_pdf:
+                pdf_file) as new_pdf:
                 input_pdf.pages.extend(new_pdf.pages)
                 input_pdf.save(card.file.path)
             messages.add_message(request, messages.SUCCESS,
@@ -247,11 +248,26 @@ def merge_pdfs(request, cid):
 def download_selected_cards(request):
     # Получаем список выбранных заявок из POST-запроса
     bids = [int(i) for i in request.POST.getlist('bids[]')]
+    # Преобразование объекта Datetime в строчный вид
+    formatted_date = Func(
+        F('received_at'),
+        Value('DD-MM-YYYY'),
+        function='to_char',
+        output_field=CharField()
+    )
+    formatted_time = Func(
+        F('received_at'),
+        Value('HH:MM'),
+        function='to_char',
+        output_field=CharField()
+    )
 
     # Получаем соответствующие объекты модели Card
-    cards = Card.objects.select_related('individual_entity').values(
-        'id',
-        'created_at',
+    cards = Card.objects.select_related('individual_entity')\
+        .annotate(date_as_str=formatted_date, time_as_str=formatted_time)\
+        .values(
+        'date_as_str',
+        'time_as_str',
         'city',
         'district',
         'street',
@@ -277,7 +293,6 @@ def download_selected_cards(request):
         'organization'
     ).filter(id__in=bids)
 
-
     # Загружаем excel-шаблон и выбираем первый лист
     xl_workbook = load_workbook(filename='registry_template.xlsx')
     xl_sheet = xl_workbook.worksheets[0]
@@ -287,13 +302,12 @@ def download_selected_cards(request):
         for col, field_name in xl_map.items():
             xl_sheet[f'{col}{row_n + 2}'].value = card[field_name]
 
-
     with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as xl_file:
         xl_workbook.save(xl_file.name)
 
-    with open(xl_file.name, 'rb') as fh:
-        response = HttpResponse(fh.read(),
-                                content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-        response[
-            'Content-Disposition'] = f'attachment; filename={os.path.basename(xl_file.name)}'
-        return response
+        with open(xl_file.name, 'rb') as fh:
+            response = HttpResponse(fh.read(),
+                                    content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            response[
+                'Content-Disposition'] = f'attachment; filename={os.path.basename(xl_file.name)}'
+            return response

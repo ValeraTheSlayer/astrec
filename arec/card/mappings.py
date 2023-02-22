@@ -1,6 +1,6 @@
 xl_map = {
-    # 'A': 'created_at',
-    # 'B': 'created_at',
+    'A': 'date_as_str',
+    'B': 'time_as_str',
     'C': 'city',
     'D': 'district',
     'E': 'street',
