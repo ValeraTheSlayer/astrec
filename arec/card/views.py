@@ -16,7 +16,7 @@ from django.db import transaction
 from django.db.models import Count, F, Func, Value, CharField
 
 from approval.models import Approval
-from arec.settings import AREC_POSITIONS
+from arec.settings import AREC_POSITIONS, BASE_DIR
 
 from .models import Card, DOC_TYPES, CardIndividual, CardLegalEntity
 from .mappings import xl_map
@@ -295,7 +295,7 @@ def download_selected_cards(request):
     ).filter(id__in=bids)
 
     # Загружаем excel-шаблон и выбираем первый лист
-    xl_workbook = load_workbook(filename='registry_template.xlsx')
+    xl_workbook = load_workbook(filename=os.path.join(BASE_DIR, 'registry_template.xlsx'))
     xl_sheet = xl_workbook.worksheets[0]
 
     # Заполняем ячейки в excel-файле с помощью словаря xl_map
