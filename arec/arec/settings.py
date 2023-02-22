@@ -35,6 +35,7 @@ DEBUG = True if PROJECT_RUN_MODE == 'dev' else False
 # 46.8.43.198 is our demo VPS on gohost.kz
 ALLOWED_HOSTS = ['innerdjango', '46.8.43.198']
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Application definition
 

@@ -67,8 +67,8 @@
         </div>
       </td>
       <td class="first-col opacity-1">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
-      <td>{{ bid.created_at | date:"d.m.y" }}</td>
-      <td>{{ bid.created_at | date:"H:i" }}</td>
+      <td>{{ bid.received_at | date:"d.m.y" }}</td>
+      <td>{{ bid.received_at | date:"H:i" }}</td>
       <td>{{ bid.city }}</td>
       <td>{{ bid.get_district_display }}</td>
       <td>{{ bid.street }}</td>
@@ -108,7 +108,7 @@
   </div>
   {% if request.user.position == 'HEAD_SCPE' %}
     <div class="dropdown hor-menu">
-      <a href="#" class="dropdown-toggle btn btn-primary" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Направить на исполнение</a>
+      <a href="#" class="dropdown-toggle btn btn-primary mt-2" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Направить на исполнение</a>
       <ul class="dropdown-menu rounded-0 p-0" aria-labelledby="dropdownMenuLink_new">
         <button type="submit" class="dropdown-item hor-menu-link">ЕСИЛЬ</button>
         <button type="submit" class="dropdown-item hor-menu-link">АЛМАТЫ</button>
@@ -118,8 +118,9 @@
       </ul>
     </div>
   {% else %}
-    <button type="submit" class="btn btn-primary">Согласовать выделенные</button>
+    <button type="submit" class="btn btn-primary mt-2">Согласовать выделенные</button>
   {% endif %}
+    <button type="submit" formaction="{% url 'download_selected' %}" class="btn btn-primary m-2">Скачать выбранные карточки</button>
 
 </form>
 <script>
@@ -128,21 +129,25 @@ function eventCheckBox() {
     cardsToApprove.forEach((item) => item.checked = !item.checked);
 }
 
-function drawFilterOptions() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-list"));
-    const searchButton = `<button class="filter-icon filter-apply" title="Применить фильтр" onclick="applyFilters(event)">
-                            <img src="{% static 'img/apply-icon.svg' %}" width="20px" alt="" />
-                          </button>`;
-    const cancelButton = `<button class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters(event)">
-                            <img src="{% static 'img/cancel-icon.svg' %}" width="20px" alt="" />
-                          </button>`
-    filterItems.forEach((item) => item.innerHTML += searchButton + cancelButton);
+function addFilter(field) {
+    return `<a href="#" class="filter-icon filter-apply" title="Применить фильтр" data-field="${field}" onclick="applyFilters(this.getAttribute('data-field'))" >
+                            <img src="{% static 'img/apply-icon-gray.png' %}" width="20px" alt="" />
+                          </a>`;
 }
 
-function applyFilters(event) {
-    event.preventDefault();
-    console.log(event);
-//    window.location.href = '?district=baikonur';
+function drawFilterOptions() {
+    const filterItems = Array.from(document.getElementsByClassName("filter-list"));
+    const cancelButton = `<a href="#" class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters(event)">
+                            <img src="{% static 'img/cancel-icon-gray.png' %}" width="20px" alt="" />
+                          </a>`;
+    filterItems.forEach((item) => item.innerHTML += addFilter(item.querySelector('input, select').name) + cancelButton);
+}
+
+function applyFilters(field) {
+    const filterValue = document.getElementById('id_' + field).value;
+    if (filterValue) {
+      window.location.href = `?${field}=${filterValue}`;
+    }
 }
 
 function resetFilters(event) {
@@ -150,20 +155,7 @@ function resetFilters(event) {
     window.location.href = '{% url "card_registry" %}';
 }
 
-function listenToResetButtons() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-reset"));
-    filterItems.forEach((item) => item.addEventListener("click", resetFilters));
-}
-
-
-function listenToApplyButtons() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-apply"));
-    filterItems.forEach((item) => item.addEventListener("click", applyFilters));
-}
-
 drawFilterOptions();
-listenToResetButtons();
-listenToApplyButtons();
 
 </script>
 {% endblock content %}

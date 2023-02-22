@@ -53,8 +53,8 @@
   {% for bid in cards %}
     <tr>
       <td class="first-col opacity-1">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
-      <td>{{ bid.created_at | date:"d.m.y" }}</td>
-      <td>{{ bid.created_at | date:"H:i" }}</td>
+      <td>{{ bid.received_at | date:"d.m.y" }}</td>
+      <td>{{ bid.received_at | date:"H:i" }}</td>
       {% if entity == 'legal' %}
         <td>{{ bid.legal_entity.company_name }}</td>
         <td>{{ bid.legal_entity.bin }}</td>
@@ -98,10 +98,10 @@
 function drawFilterOptions() {
     const filterItems = Array.from(document.getElementsByClassName("filter-list"));
     const searchButton = `<button class="filter-icon" title="Применить фильтр" type="submit">
-                            <img src="{% static 'img/apply-icon.svg' %}" width="20px" alt="" />
+                            <img src="{% static 'img/apply-icon-gray.png' %}" width="20px" alt="" />
                           </button>`;
     const cancelButton = `<button class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters()">
-                            <img src="{% static 'img/cancel-icon.svg' %}" width="20px" alt="" />
+                            <img src="{% static 'img/cancel-icon-gray.png' %}" width="20px" alt="" />
                           </button>`
     filterItems.forEach((item) => item.innerHTML += searchButton + cancelButton);
 }
