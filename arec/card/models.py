@@ -94,6 +94,7 @@ class Card(models.Model):
     is_archived = models.BooleanField(null=False, default=False)
 
     last_approval = models.OneToOneField('approval.Approval', on_delete=models.SET_NULL, null=True)
+    page_number_on_which_the_act_begins = models.IntegerField(null=True, blank=True)
 
     class Meta:
         ordering = ['-created_at']
