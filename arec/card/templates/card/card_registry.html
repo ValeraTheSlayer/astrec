@@ -108,7 +108,7 @@
   </div>
   {% if request.user.position == 'HEAD_SCPE' %}
     <div class="dropdown hor-menu">
-      <a href="#" class="dropdown-toggle btn btn-primary" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Направить на исполнение</a>
+      <a href="#" class="dropdown-toggle btn btn-primary mt-2" role="button" id="dropdownMenuLink_new" data-bs-toggle="dropdown" aria-expanded="false">Направить на исполнение</a>
       <ul class="dropdown-menu rounded-0 p-0" aria-labelledby="dropdownMenuLink_new">
         <button type="submit" class="dropdown-item hor-menu-link">ЕСИЛЬ</button>
         <button type="submit" class="dropdown-item hor-menu-link">АЛМАТЫ</button>
@@ -118,9 +118,9 @@
       </ul>
     </div>
   {% else %}
-    <button type="submit" class="btn btn-primary">Согласовать выделенные</button>
+    <button type="submit" class="btn btn-primary mt-2">Согласовать выделенные</button>
   {% endif %}
-    <button type="submit" formaction="{% url 'download_selected' %}" class="btn btn-primary">Скачать выбранные карточки</button>
+    <button type="submit" formaction="{% url 'download_selected' %}" class="btn btn-primary m-2">Скачать выбранные карточки</button>
 
 </form>
 <script>
