@@ -33,7 +33,7 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True if PROJECT_RUN_MODE == 'dev' else False
 
 # 46.8.43.198 is our demo VPS on gohost.kz
-ALLOWED_HOSTS = ['innerdjango', '46.8.43.198']
+ALLOWED_HOSTS = ['localhost', 'innerdjango', '46.8.43.198']
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
@@ -189,7 +189,8 @@ MEDIA_URL = '/docs/'
 
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://46.8.43.198'
+    'http://46.8.43.198',
+    'http://localhost'
 ]
 
 
