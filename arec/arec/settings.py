@@ -34,6 +34,7 @@ DEBUG = True if PROJECT_RUN_MODE == 'dev' else False
 
 ALLOWED_HOSTS = []
 
+X_FRAME_OPTIONS = 'ALLOW-FROM http://localhost/'
 
 # Application definition
 
