@@ -235,7 +235,7 @@ def merge_pdfs(request, cid):
                 pdf_file) as new_pdf:
                 input_pdf.pages.extend(new_pdf.pages)
                 page_number = len(input_pdf.pages) - len(new_pdf.pages) + 1
-                card.page_number_on_which_the_act_begins = page_number
+                card.act_page_number = page_number
                 card.save()
                 input_pdf.save(card.file.path)
             messages.add_message(request, messages.SUCCESS,
