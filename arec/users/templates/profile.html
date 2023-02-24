@@ -33,6 +33,21 @@
         </div>
         <div class="row pt-2">
             <div class="col-3">
+                <label>Изменить должность</label>
+            </div>
+            <div class="col d-flex align-items-center">
+                <form method="post"  id="profile-form">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                </form>
+                <p>
+                <span style="margin-right: 10px;"></span>
+                <button type="submit"  form="profile-form">Изменить</button>
+                </p>
+            </div>
+        </div>
+        <div class="row pt-0">
+            <div class="col-3">
                 <label>Район</label>
             </div>
             <div class="col">
