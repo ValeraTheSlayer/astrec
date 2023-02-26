@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
+
 <form method="POST" href="{% url 'card_registry' %}" enctype="multipart/form-data">
   {% csrf_token %}
   <div id="table-wrapper">
@@ -55,54 +56,60 @@
     </tr>
   </thead>
   <tbody>
-
-  {% for bid in cards %}
+  {% if cards.count > 0 %}
+    {% for bid in cards %}
+      <tr>
+        <td>
+          <div class="form-group rowauto" data-toggle="buttons">
+                <label class="checkbox">
+                    <input class="approval-card" type="checkbox" id="bid_{{ bid.id }}" name="bids[]" value="{{ bid.id }}" autocomplete="off">
+                    <span class="glyphicon glyphicon-ok"></span>
+                </label>
+          </div>
+        </td>
+        <td class="first-col opacity-1">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
+        <td>{{ bid.received_at | date:"d.m.y" }}</td>
+        <td>{{ bid.received_at | date:"H:i" }}</td>
+        <td>{{ bid.city }}</td>
+        <td>{{ bid.get_district_display }}</td>
+        <td>{{ bid.street }}</td>
+        <td>{{ bid.bldg }}</td>
+        <td>{{ bid.block }}</td>
+        <td>{{ bid.entrance }}</td>
+        <td>{{ bid.floor }}</td>
+        <td>{{ bid.apt_num }}</td>
+        {% if entity == 'legal' %}
+          <td>{{ bid.legal_entity.company_name }}</td>
+          <td>{{ bid.legal_entity.bin }}</td>
+        {% else %}
+          <td>{{ bid.individual_entity.last_name }}</td>
+          <td>{{ bid.individual_entity.first_name }}</td>
+          <td>{{ bid.individual_entity.patronymic_name }}</td>
+          <td>{{ bid.individual_entity.iin }}</td>
+        {% endif %}
+        <td>{{ bid.phone_number }}</td>
+        <td>{{ bid.get_object_category_display }}</td>
+        <td>{{ bid.get_task_display }}</td>
+        <td>{{ bid.square }}</td>
+        <td>{{ bid.connection_point }}</td>
+        <td>{{ bid.power }}</td>
+        <td>{{ bid.nominal }}</td>
+        <td>{{ bid.main_point }}</td>
+        <td>{{ bid.counter_model }}</td>
+        <td>{{ bid.counter_number }}</td>
+        <td>{{ bid.contract }}</td>
+        <td>{{ bid.organization }}</td>
+        <td>{{ bid.operator }}</td>
+        <td>На рассмотрении</td>
+      </tr>
+    {% endfor %}
+  {% else %}
     <tr>
-      <td>
-        <div class="form-group rowauto" data-toggle="buttons">
-              <label class="checkbox">
-                  <input class="approval-card" type="checkbox" id="bid_{{ bid.id }}" name="bids[]" value="{{ bid.id }}" autocomplete="off">
-                  <span class="glyphicon glyphicon-ok"></span>
-              </label>
-        </div>
+      <td colspan="30" class="p-3">
+        Нет заявок для согласования
       </td>
-      <td class="first-col opacity-1">&nbsp;<span style="color:black; font-weight: bold"><a href="{% url 'card_detail' cid=bid.id %}">{{ bid.id }}</a></span></td>
-      <td>{{ bid.received_at | date:"d.m.y" }}</td>
-      <td>{{ bid.received_at | date:"H:i" }}</td>
-      <td>{{ bid.city }}</td>
-      <td>{{ bid.get_district_display }}</td>
-      <td>{{ bid.street }}</td>
-      <td>{{ bid.bldg }}</td>
-      <td>{{ bid.block }}</td>
-      <td>{{ bid.entrance }}</td>
-      <td>{{ bid.floor }}</td>
-      <td>{{ bid.apt_num }}</td>
-      {% if entity == 'legal' %}
-        <td>{{ bid.legal_entity.company_name }}</td>
-        <td>{{ bid.legal_entity.bin }}</td>
-      {% else %}
-        <td>{{ bid.individual_entity.last_name }}</td>
-        <td>{{ bid.individual_entity.first_name }}</td>
-        <td>{{ bid.individual_entity.patronymic_name }}</td>
-        <td>{{ bid.individual_entity.iin }}</td>
-      {% endif %}
-      <td>{{ bid.phone_number }}</td>
-      <td>{{ bid.get_object_category_display }}</td>
-      <td>{{ bid.get_task_display }}</td>
-      <td>{{ bid.square }}</td>
-      <td>{{ bid.connection_point }}</td>
-      <td>{{ bid.power }}</td>
-      <td>{{ bid.nominal }}</td>
-      <td>{{ bid.main_point }}</td>
-      <td>{{ bid.counter_model }}</td>
-      <td>{{ bid.counter_number }}</td>
-      <td>{{ bid.contract }}</td>
-      <td>{{ bid.organization }}</td>
-      <td>{{ bid.operator }}</td>
-      <td>На рассмотрении</td>
     </tr>
-  {% endfor %}
-
+  {% endif %}
   </tbody>
   </table>
   </div>
@@ -126,5 +133,6 @@
 </form>
 
 <script src="{% static 'js/filter.js' %}"></script>
+
 
 {% endblock content %}
