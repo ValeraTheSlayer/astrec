@@ -238,7 +238,7 @@
 {% if card.file %}
 <div style="float: left; width: 50%">
     <div id="pdfcontainer" style="background-color: white; position: relative;">
-      <iframe  src="{{ card.file.url }}" style="width:100%; height: 800px;" frameborder="0"></iframe>
+      <iframe src="{{ card.file.url }}?time={{ card.updated_at }}" style="width:100%; height: 800px;" frameborder="0"></iframe>
     </div>
 </div>
 {% endif %}
