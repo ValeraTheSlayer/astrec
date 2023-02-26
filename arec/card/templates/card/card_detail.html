@@ -219,7 +219,7 @@
                 <a href="{{ card.file.url }}" target="_blank">{{ card.file.name }}</a><br>
                 {% if card.act_page_number is not None %}
                   <p>Акт начинается со страницы {{ card.act_page_number  }}.</p>
-                {% else %}
+                {% elif request.user.position == 'CONTROLLER' %}
                 <form method="post" action="{{ merge_url }}" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label for="new_file">Прикрепить акт:</label>

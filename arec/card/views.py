@@ -108,7 +108,7 @@ def card_approval_registry(request, entity='individual'):
 
     return render(request, 'card/card_registry.html',
                   {'cards': filtered_cards_to_approve, 'OurFilter': ourfilter,
-                   'is_individual':  entity == 'individual'})
+                   'is_individual': entity == 'individual'})
 
 
 @my_view
@@ -222,11 +222,14 @@ def card_statistics(request):
 @my_view
 def merge_pdfs(request, cid):
     """
-    Функция для добавления pdf файлов в уже существующий файл
+    Функция для добавления pdf файлов в уже существующий файл.
+    В данном проекте функция используется для добавления акта контроллером.
+    После добавления акта карточка попадает в архив
     """
     card = Card.objects.get(pk=cid)
 
     if request.method == 'POST':
+        # TODO: validate user.position is CONTROLLER
         if 'pdf_file' not in request.FILES:
             messages.add_message(request, messages.WARNING,
                                  'Пожалуйста, выберите файл для загрузки')
@@ -238,6 +241,7 @@ def merge_pdfs(request, cid):
                 input_pdf.pages.extend(new_pdf.pages)
                 page_number = len(input_pdf.pages) - len(new_pdf.pages) + 1
                 card.act_page_number = page_number
+                card.is_archived = True
                 card.save()
                 input_pdf.save(card.file.path)
             messages.add_message(request, messages.SUCCESS,
