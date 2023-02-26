@@ -51,14 +51,17 @@ def card_list(request, entity='individual'):
 
 
 @my_view
-def card_archive(request):
+def card_archive(request, entity='individual'):
     """
     Функция для создания архива карточек
     """
     cards = Card.objects.filter(is_archived=True)
+    ourfilter = CardFilter(request.GET, queryset=cards)
+
     return render(request, 'card/card_list.html',
                   {'cards': cards, 'is_individual': True,
-                   'entity': 'individual'})
+                   'entity': entity,
+                   'OurFilter': ourfilter})
 
 
 @my_view
@@ -93,8 +96,8 @@ def card_approval_registry(request, entity='individual'):
     approving_position = position_order[position_order.index(request.user.position) - 1]
 
     filter_kwargs = {'last_approval__approving_position': approving_position}
-    if approving_position == 'OPERATOR_SCPE':
-        filter_kwargs['district'] = request.user.district
+    #  if approving_position == 'OPERATOR_SCPE':
+    #      filter_kwargs['district'] = request.user.district
 
     cards_to_approve = Card.objects.select_related('last_approval',
                                                    'last_approval__approving_person') \

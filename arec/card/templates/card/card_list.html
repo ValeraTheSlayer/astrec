@@ -94,31 +94,6 @@
 </div>
 </form>
 
-<script>
-function drawFilterOptions() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-list"));
-    const searchButton = `<button class="filter-icon" title="Применить фильтр" type="submit">
-                            <img src="{% static 'img/apply-icon-gray.png' %}" width="20px" alt="" />
-                          </button>`;
-    const cancelButton = `<button class="filter-icon filter-reset" title="Сбросить все фильтры" onclick="resetFilters()">
-                            <img src="{% static 'img/cancel-icon-gray.png' %}" width="20px" alt="" />
-                          </button>`
-    filterItems.forEach((item) => item.innerHTML += searchButton + cancelButton);
-}
+<script src="{% static 'js/filter.js' %}"></script>
 
-function resetFilters(event) {
-    event.preventDefault();
-    window.location.href = '{% url "card_list" entity=entity %}';
-}
-
-function listenToResetButtons() {
-    const filterItems = Array.from(document.getElementsByClassName("filter-reset"));
-    filterItems.forEach((item) => item.addEventListener("click", resetFilters));
-}
-
-drawFilterOptions();
-listenToResetButtons();
-
-
-</script>
 {% endblock content %}
