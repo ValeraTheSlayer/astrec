@@ -74,6 +74,9 @@ def card_approval_registry(request, entity='individual'):
         approved_list = [
             Approval(
                 approving_person=request.user,
+                # fix position at the approving_position field to be able to switch user.position
+                # keeping the previous position in the approval entity
+                approving_position=request.user.position,
                 card_ref=card,
                 parent=card.last_approval
             )
@@ -87,12 +90,10 @@ def card_approval_registry(request, entity='individual'):
         Card.objects.bulk_update(cards, ['last_approval'])
 
     position_order = [position[0] for position in AREC_POSITIONS]
-    approving_position = position_order[
-        position_order.index(request.user.position) - 1]
+    approving_position = position_order[position_order.index(request.user.position) - 1]
 
-    filter_kwargs = {
-        'last_approval__approving_person__position': approving_position}
-    if approving_position == 'OPERATOR':
+    filter_kwargs = {'last_approval__approving_position': approving_position}
+    if approving_position == 'OPERATOR_SCPE':
         filter_kwargs['district'] = request.user.district
 
     cards_to_approve = Card.objects.select_related('last_approval',
@@ -104,7 +105,7 @@ def card_approval_registry(request, entity='individual'):
 
     return render(request, 'card/card_registry.html',
                   {'cards': filtered_cards_to_approve, 'OurFilter': ourfilter,
-                   'is_individual': True})
+                   'is_individual':  entity == 'individual'})
 
 
 @my_view
@@ -113,9 +114,7 @@ def card_detail(request, cid, entity='individual'):
     Функция для создания информации о конкретной карточке
     """
     card = Card.objects.get(pk=cid)
-    approvals = Approval.objects.select_related('approving_person') \
-        .filter(card_ref=cid).values_list('approving_person__position',
-                                          flat=True)
+    approvals = Approval.objects.filter(card_ref=cid).values_list('approving_position', flat=True)
     position_titles = {position[0]: position[1].upper() for position in
                        AREC_POSITIONS}
     merge_url = reverse('merge_pdfs', args=[card.id])
