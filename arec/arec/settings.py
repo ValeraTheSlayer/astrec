@@ -207,6 +207,7 @@ AREC_POSITIONS = (
     ('LEAD_ENGINEER', 'Ведущий инженер'),
     ('HEAD_SERVICE', 'Начальник службы'),
     ('HEAD_SCPE', 'Начальник СКПЭ'),
+    ('OPERATOR_SCPE', 'Оператор СКПЭ'),
     ('CONTROLLER', 'Контроллер'),
 )
 
