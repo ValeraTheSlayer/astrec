@@ -24,6 +24,7 @@ TASK = (
 OBJECT_CATEGORY = (
     ('Garage', 'Гараж'),
     ('House', 'Дом'),
+    ('Apartment', 'Квартира'),
     ('Office', 'Офис'),
     ('Industrial_base', 'Производственная база'),
     ('Other', 'Иное'),
