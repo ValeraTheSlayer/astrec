@@ -13,3 +13,6 @@ COPY poetry.lock pyproject.toml /code/
 RUN pip3 install poetry
 
 COPY . /code/
+
+RUN pip3 install celery redis
+

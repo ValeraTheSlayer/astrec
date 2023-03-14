@@ -35,5 +35,10 @@ services:
         - /usr/django-admin-static-files/static/admin:/usr/django-admin-static-files/static/admin
         - ./arec/static:/code/arec/static
 
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
 volumes:
   pg_data: {}
