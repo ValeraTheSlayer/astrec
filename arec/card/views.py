@@ -93,7 +93,8 @@ def card_approval_registry(request, entity='individual'):
         Card.objects.bulk_update(cards, ['last_approval'])
 
     position_order = [position[0] for position in AREC_POSITIONS]
-    approving_position = position_order[position_order.index(request.user.position) - 1]
+    approving_position = position_order[
+        position_order.index(request.user.position) - 1]
 
     filter_kwargs = {'last_approval__approving_position': approving_position}
     #  if approving_position == 'OPERATOR_SCPE':
@@ -117,7 +118,8 @@ def card_detail(request, cid, entity='individual'):
     Функция для создания информации о конкретной карточке
     """
     card = Card.objects.get(pk=cid)
-    approvals = Approval.objects.filter(card_ref=cid).values_list('approving_position', flat=True)
+    approvals = Approval.objects.filter(card_ref=cid).values_list(
+        'approving_position', flat=True)
     position_titles = {position[0]: position[1].upper() for position in
                        AREC_POSITIONS}
     merge_url = reverse('merge_pdfs', args=[card.id])
